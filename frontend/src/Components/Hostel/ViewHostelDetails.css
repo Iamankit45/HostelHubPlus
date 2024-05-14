@@ -1,0 +1,97 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .card-header {
+    padding: 1rem;
+    font-size: 1.25rem;
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  .card-body {
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .list-group-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .pagination .page-item.disabled .page-link {
+    color: #6c757d;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .pagination .page-link {
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 767px) {
+    .card-header, .card-body {
+      padding: 0.75rem;
+    }
+  
+    .card-title {
+      font-size: 1rem;
+    }
+  
+    .card-text {
+      font-size: 0.9rem;
+    }
+  
+    .list-group-item {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .pagination {
+    margin-top: 1rem;
+  }
+  
+  .page-link {
+    cursor: pointer;
+  }
+  
+  .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  
+  .room-card {
+    background-color: #fff;
+  }
+  
+  .room-card-occupied {
+    background-color: #f75555;
+  }
