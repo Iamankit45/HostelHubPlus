@@ -22,9 +22,11 @@ app.use(cors(corsOptions));
 
 const userRouter = require("./routes/users/userRoutes");
 const authRouter=require("./routes/auth");
+const noticeRouter = require("./routes/notice/noticeRoutes");
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/",authRouter);
+app.use("/api/v1/notice",noticeRouter);
 
 
 // Define routes

@@ -1,5 +1,5 @@
 // UserContext.js
-import React, { createContext, useState ,useEffect} from 'react';
+import React, { createContext, useState ,useEffect,useContext} from 'react';
 
 const UserContext = createContext();
 
@@ -24,3 +24,7 @@ export const UserProvider = ({ children }) => {
 };
 
 export default UserContext;
+
+export const useAuth = () => {
+    return(useContext(UserContext));
+}

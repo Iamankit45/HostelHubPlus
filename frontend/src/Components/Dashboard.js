@@ -26,13 +26,14 @@ const Dashboard = () => {
         navigationLinks = [
             { label: 'View Rooms', to: '/view-rooms' },
             { label: 'Apply for Leave', to: '/apply-for-leave' },
-            { label: 'View Notice Board', to: '/view-notice-board' },
+            { label: 'View Notice Board', to: '/notice' },
             // Add more student-specific links here
         ];
     } else if (role === 'staff') {
         navigationLinks = [
             { label: 'Approve Leave', to: '/approve-leave' },
             { label: 'Manage Inventory', to: '/manage-inventory' },
+            {label: 'Manage Notice Board', to: '/notice' },
             // Add more staff-specific links here
         ];
     }
