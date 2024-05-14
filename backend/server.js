@@ -24,11 +24,13 @@ const userRouter = require("./routes/users/userRoutes");
 const authRouter=require("./routes/auth");
 const noticeRouter = require("./routes/notice/noticeRoutes");
 const hostelRouter = require("./routes/hostel/hostelRoute");
+const studentRouter = require("./routes/student/studentRoutes");
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/",authRouter);
 app.use("/api/v1/notice",noticeRouter);
 app.use("/api/v1/hostel",hostelRouter);
+app.use("/api/v1/student",studentRouter);
 
 
 // Define routes
