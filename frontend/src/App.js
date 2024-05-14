@@ -10,6 +10,7 @@ import RequireAuth from './Context/RequireAuth';
 import { NoticeProvider } from './Context/NoticeContext';
 import Notice from './Components/Notice/Notice';
 import NoticeForm from './Components/Notice/NoticeForm';
+import EditNotice from './Components/Notice/EditNotice';
 
 
 import './App.css';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/view-rooms" element={<ViewRoom />} />
           <Route path="/notice" element={<RequireAuth><Notice /></RequireAuth>} />
           <Route path="/create-notice" element ={<RequireAuth><NoticeForm/></RequireAuth>}/>
+          <Route path="/edit-notice/:id" element={<RequireAuth><EditNotice/></RequireAuth>} />
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>
