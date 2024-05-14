@@ -32,7 +32,7 @@ const NoticeBoard = () => {
 
                 <h1 className="text-center mb-4">Notice Board</h1>
                 <div className="row">
-                
+
                     <div className="col-md-12">
                         <div className="text-md-right mb-3">
                             {user && user.role === 'staff' && ( // Check if user is staff
@@ -40,14 +40,21 @@ const NoticeBoard = () => {
                             )}
                         </div>
                     </div>
+                    
+                    <div className="overflow-auto" style={{maxHeight:'600px',}}>
+                    <br></br>
                     {notices.map((notice) => (
-                        <div key={notice._id} className="col-md-6">
+                        
+                        <div key={notice._id} className="col-md-12 "  >
+                        
                             {/* Render NoticeCard component for each notice */}
-                            <NoticeCard notice={notice} />
+                              <NoticeCard notice={notice} />
                         </div>
                     ))}
+                    </div>
                 </div>
             </div>
+            
         </>
     );
 };

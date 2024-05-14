@@ -16,28 +16,34 @@ export const NoticeProvider = ({ children }) => {
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchNotices = async () => {
-      try {
-        const response = await fetch(API); // Adjust the endpoint as per your backend setup
-        if (!response.ok) {
-          throw new Error('Failed to fetch notices');
-        }
-        const data = await response.json();
-        setNotices(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching notices:', error);
-        setLoading(false);
+  const fetchNotices = async () => {
+    try {
+      const response = await fetch(API);
+      if (!response.ok) {
+        throw new Error('Failed to fetch notices');
       }
-    };
+      const data = await response.json();
+      setNotices(data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching notices:', error);
+      setLoading(false);
+    }
+  };
 
+  const refreshNotices = () => {
+    setLoading(true);
+    fetchNotices();
+  };
+
+  useEffect(() => {
     fetchNotices();
   }, []);
 
   return (
-    <NoticeContext.Provider value={{ notices, loading }}>
+    <NoticeContext.Provider value={{ notices, loading, refreshNotices }}>
       {children}
     </NoticeContext.Provider>
   );
 };
+

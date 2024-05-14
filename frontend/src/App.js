@@ -33,8 +33,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>
-        
+       
       </UserProvider>
+      
     
      
     
