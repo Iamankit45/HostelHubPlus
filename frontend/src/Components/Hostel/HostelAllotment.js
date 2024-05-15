@@ -10,6 +10,7 @@ const HostelAllotment = () => {
   const [selectedHostel, setSelectedHostel] = useState('');
   const [selectedBatch, setSelectedBatch] = useState('');
   const [selectedStudents, setSelectedStudents] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchHostels = async () => {
@@ -51,6 +52,7 @@ const HostelAllotment = () => {
   };
 
   const handleAllotment = async () => {
+    setLoading(true);
     try {
       await privateApi.post('/hostel/allot-hostel', {
         hostelId: selectedHostel,
@@ -67,11 +69,17 @@ const HostelAllotment = () => {
       })));
     } catch (error) {
       console.error('Error allotting hostel:', error);
+    }finally {
+      setLoading(false);
     }
   };
 
+  const getStudentCountByProgramme = (programme) => {
+    return students.filter(student => student.programme === programme).length;
+  };
+
   return (
-    
+
     <div className="container mt-5 d-flex justify-content-center ">
       <div className="card p-4" style={{ width: '100%', maxWidth: '800px' }}>
         <h1 className="text-center mb-4">Hostel Allotment</h1>
@@ -107,8 +115,18 @@ const HostelAllotment = () => {
         </div>
         {selectedBatch && (
           <div className="mb-4">
-            <h5>Students in Batch {selectedBatch}</h5>
-            <div className="list-group" style={{ maxHeight: '300px', overflowY: 'scroll' }}>
+            <div className="d-flex justify-content-between align-items-center">
+              <h5>Students in Batch {selectedBatch}</h5>
+              <div className="d-flex">
+                <span className="badge bg-primary me-2">Total: {students.length}</span>
+                <span className="badge bg-secondary me-2">CSE: {getStudentCountByProgramme('CSE')}</span>
+                <span className="badge bg-success me-2">ECE: {getStudentCountByProgramme('ECE')}</span>
+                <span className="badge bg-danger me-2">MECH: {getStudentCountByProgramme('MECH')}</span>
+                <span className="badge bg-warning text-dark me-2">SM: {getStudentCountByProgramme('SM')}</span>
+                <span className="badge bg-info text-dark">DS: {getStudentCountByProgramme('DS')}</span>
+              </div>
+            </div>
+            <div className="list-group mt-3" style={{ maxHeight: '300px', overflowY: 'scroll' }}>
               {students.map((student) => (
                 <div
                   key={student._id}
@@ -137,6 +155,11 @@ const HostelAllotment = () => {
         >
           Allot Hostel
         </button>
+        {loading && (
+          <div className="mt-3 text-center">
+            <p>Allotment is processing...</p>
+          </div>
+        )}
       </div>
     </div>
   );
