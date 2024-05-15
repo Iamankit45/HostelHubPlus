@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
 
 const HostelAllotment = () => {
   const privateApi = useAxiosPrivate();
@@ -11,6 +12,8 @@ const HostelAllotment = () => {
   const [selectedBatch, setSelectedBatch] = useState('');
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+  const [hostelCapacity, setHostelCapacity] = useState(0);
 
   useEffect(() => {
     const fetchHostels = async () => {
@@ -43,12 +46,38 @@ const HostelAllotment = () => {
     fetchStudents();
   }, [selectedBatch]);
 
+  useEffect(() => {
+    if (selectedHostel) {
+      const hostel = hostels.find(h => h._id === selectedHostel);
+      if (hostel) {
+        const capacity = hostel.maxOccupancy - (hostel.students ? hostel.students.length : 0);
+        setHostelCapacity(capacity);
+      }
+    }
+  }, [selectedHostel, hostels]);
+
   const handleStudentSelection = (studentId) => {
-    setSelectedStudents(prevSelected =>
-      prevSelected.includes(studentId)
-        ? prevSelected.filter(id => id !== studentId)
-        : [...prevSelected, studentId]
-    );
+    setSelectedStudents(prevSelected => {
+      if (prevSelected.includes(studentId)) {
+        return prevSelected.filter(id => id !== studentId);
+      } else if (prevSelected.length < hostelCapacity) {
+        return [...prevSelected, studentId];
+      } else {
+        setShowWarning(true);
+        return prevSelected;
+      }
+    });
+  };
+
+  const handleSelectAll = () => {
+    if (selectedStudents.length < hostelCapacity) {
+      const allStudentIds = students.map(student => student._id);
+      const availableSlots = hostelCapacity - selectedStudents.length;
+      const studentsToSelect = allStudentIds.slice(0, availableSlots);
+      setSelectedStudents(prevSelected => [...prevSelected, ...studentsToSelect]);
+    } else {
+      setShowWarning(true);
+    }
   };
 
   const handleAllotment = async () => {
@@ -69,7 +98,7 @@ const HostelAllotment = () => {
       })));
     } catch (error) {
       console.error('Error allotting hostel:', error);
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -77,6 +106,8 @@ const HostelAllotment = () => {
   const getStudentCountByProgramme = (programme) => {
     return students.filter(student => student.programme === programme).length;
   };
+  const alreadyAllotted = students.filter(student => student.currentHostel).length;
+  const leftToAllot = students.length - alreadyAllotted;
 
   return (
 
@@ -126,6 +157,13 @@ const HostelAllotment = () => {
                 <span className="badge bg-info text-dark">DS: {getStudentCountByProgramme('DS')}</span>
               </div>
             </div>
+            <div className="d-flex justify-content-between align-items-center mt-3">
+              <button className="btn btn-outline-primary" onClick={handleSelectAll}>Select All</button>
+              <div>
+                <span className="badge bg-info me-2">Already Allotted: {alreadyAllotted}</span>
+                <span className="badge bg-warning">Left to Allot: {leftToAllot}</span>
+              </div>
+            </div>
             <div className="list-group mt-3" style={{ maxHeight: '300px', overflowY: 'scroll' }}>
               {students.map((student) => (
                 <div
@@ -160,6 +198,17 @@ const HostelAllotment = () => {
             <p>Allotment is processing...</p>
           </div>
         )}
+        <Modal show={showWarning} onHide={() => setShowWarning(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Selection Limit Exceeded</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>You have selected more students than the available capacity. Please deselect some students before proceeding.</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowWarning(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );

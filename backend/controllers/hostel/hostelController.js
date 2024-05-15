@@ -124,6 +124,23 @@ exports.allotHostel = async (req, res) => {
         for (let student of students) {
             // Remove student from the previous hostel if they were allotted one
             if (student.hostel) {
+
+                // Find the room where the student was previously allotted
+                const previousRoom = await Room.findOne({ occupants: student._id });
+                if (previousRoom) {
+
+                    previousRoom.occupants = previousRoom.occupants.filter(id => id.toString() !== student._id.toString());
+
+                    // Remove the student from the previous room's occupants list
+                    // previousRoom.occupants = previousRoom.occupants.filter(id => id !== student._id);
+                    previousRoom.availableSeats++; // Increment available seats
+                    previousRoom.status = 'available'; // Update room status
+                    await previousRoom.save();
+                }
+
+                // Remove previous room from student's details
+                await Student.findByIdAndUpdate(student._id, { room: null });
+
                 await Hostel.findByIdAndUpdate(student.hostel, {
                     $pull: { students: student._id }
                 });
@@ -147,24 +164,24 @@ exports.allotHostel = async (req, res) => {
 
 exports.getStudentsByHostel = async (req, res) => {
     try {
-      const { hostelId } = req.params;
-  
-      // Find the hostel by ID to ensure it exists
-      const hostel = await Hostel.findById(hostelId);
-      if (!hostel) {
-        return res.status(404).json({ message: 'Hostel not found' });
-      }
-  
-      // Find students assigned to this hostel
-      const students = await Student.find({ hostel: hostelId });
-  
-      res.status(200).json(students);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching students for the hostel', error });
-    }
-  };
+        const { hostelId } = req.params;
 
-  exports.getHostelRooms = async (req, res) => {
+        // Find the hostel by ID to ensure it exists
+        const hostel = await Hostel.findById(hostelId);
+        if (!hostel) {
+            return res.status(404).json({ message: 'Hostel not found' });
+        }
+
+        // Find students assigned to this hostel
+        const students = await Student.find({ hostel: hostelId });
+
+        res.status(200).json(students);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching students for the hostel', error });
+    }
+};
+
+exports.getHostelRooms = async (req, res) => {
     const { hostelId } = req.params;
 
     try {

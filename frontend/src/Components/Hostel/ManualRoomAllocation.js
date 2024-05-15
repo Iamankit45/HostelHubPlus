@@ -102,7 +102,7 @@ const ManualRoomAllocation = () => {
 
     return (
         <div className="container mt-5" style={{ maxWidth: '800px',margin: 'auto '}}>
-            <h2 className="text-center mb-4">Manual Room Allocation of {hostelName} </h2>
+            <h2 className="text-center mb-4">Manual Room Allocation For {hostelName} </h2>
             
             <div className="card mb-4 p-4 shadow-sm " >
                 <h3 className="mb-3"style={{ color:'#007bff',display:'flex',alignItems: 'center' }} ><FaDoorOpen/>Reassign Room</h3>
