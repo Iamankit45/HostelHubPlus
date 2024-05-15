@@ -36,8 +36,9 @@ const studentSchema = new mongoose.Schema({
         ref: 'Hostel',
         required: false
     },
-    roomNo: {
-        type: String,
+    room: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room',
         required: false
     },
     address: {

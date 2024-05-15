@@ -144,3 +144,22 @@ exports.allotHostel = async (req, res) => {
         res.status(500).json({ message: 'Error allotting hostel', error });
     }
 }
+
+exports.getStudentsByHostel = async (req, res) => {
+    try {
+      const { hostelId } = req.params;
+  
+      // Find the hostel by ID to ensure it exists
+      const hostel = await Hostel.findById(hostelId);
+      if (!hostel) {
+        return res.status(404).json({ message: 'Hostel not found' });
+      }
+  
+      // Find students assigned to this hostel
+      const students = await Student.find({ hostel: hostelId });
+  
+      res.status(200).json(students);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching students for the hostel', error });
+    }
+  };

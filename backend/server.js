@@ -25,12 +25,14 @@ const authRouter=require("./routes/auth");
 const noticeRouter = require("./routes/notice/noticeRoutes");
 const hostelRouter = require("./routes/hostel/hostelRoute");
 const studentRouter = require("./routes/student/studentRoutes");
+const roomRouter =require("./routes/room/roomRoutes")
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/",authRouter);
 app.use("/api/v1/notice",noticeRouter);
 app.use("/api/v1/hostel",hostelRouter);
 app.use("/api/v1/student",studentRouter);
+app.use("/api/v1/room",roomRouter);
 
 
 // Define routes
