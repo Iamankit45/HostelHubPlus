@@ -15,6 +15,7 @@ import AddHostelForm from './Components/Hostel/AddHostel';
 import ViewHostelDetails from './Components/Hostel/ViewHostels';
 import SpecificHostelDetails from './Components/Hostel/SpecificHostelDetails';
 import HostelAllotment from './Components/Hostel/HostelAllotment';
+import ManualRoomAllocation from './Components/Hostel/ManualRoomAllocation';
 
 import './App.css';
 
@@ -40,6 +41,7 @@ function App() {
           
           <Route path="/admin/view-hostels/:id" element={<RequireAuth><SpecificHostelDetails/></RequireAuth>}/>
           <Route path="/admin/hostel-allotment" element={<RequireAuth><HostelAllotment/></RequireAuth>}/>
+          <Route path ="/hostel/:id/manual-allocation" element={<RequireAuth><ManualRoomAllocation/></RequireAuth>}/>
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

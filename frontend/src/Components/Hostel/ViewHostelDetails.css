@@ -4,8 +4,10 @@
   }
   
   .card {
+    
     margin-bottom: 1.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
+    
   }
   
   .card-header {
@@ -93,5 +95,5 @@
   }
   
   .room-card-occupied {
-    background-color: #d14f4f;
+    background-color: #f7b1b4;
   }

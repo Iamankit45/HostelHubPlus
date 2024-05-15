@@ -163,3 +163,24 @@ exports.getStudentsByHostel = async (req, res) => {
       res.status(500).json({ message: 'Error fetching students for the hostel', error });
     }
   };
+
+  exports.getHostelRooms = async (req, res) => {
+    const { hostelId } = req.params;
+
+    try {
+        // Fetch the hostel to check if it exists
+        const hostel = await Hostel.findById(hostelId);
+        if (!hostel) {
+            return res.status(404).json({ message: 'Hostel not found' });
+        }
+
+        // Fetch all rooms associated with the hostel
+        const rooms = await Room.find({ hostel: hostelId });
+
+        res.status(200).json({ rooms });
+    } catch (error) {
+        console.error('Error fetching rooms:', error);
+        res.status(500).json({ message: 'Error fetching rooms', error });
+    }
+};
+

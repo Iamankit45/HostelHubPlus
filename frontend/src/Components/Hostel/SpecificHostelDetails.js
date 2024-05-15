@@ -4,6 +4,7 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ViewHostelDetails.css';
 import { FaUser, FaBed, FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 12; // Number of rooms per page
 
@@ -14,12 +15,14 @@ const HostelDetails = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [allotProcessing, setAllotProcessing] = useState(false);
+  const [removeProcessing, setRemoveProcessing] = useState(false);
 
   useEffect(() => {
     const fetchHostelDetails = async () => {
       try {
         const response = await privateApi.get(`/hostel/${id}`);
-        console.log("API Response:", response.data); // Debugging
+        // console.log("API Response:", response.data); // Debugging
         setHostel(response.data.hostel);
         setRooms(response.data.rooms);
         setLoading(false);
@@ -33,6 +36,43 @@ const HostelDetails = () => {
     fetchHostelDetails();
   }, [id, privateApi]);
 
+  const allotRooms = async () => {
+    setAllotProcessing(true);
+    try {
+      const res=await privateApi.post(`/room/allot-rooms/${id}`);
+      console.log(res.data.message);
+      // Refresh hostel details
+      const response = await privateApi.get(`/hostel/${id}`);
+      setHostel(response.data.hostel);
+      setRooms(response.data.rooms);
+      
+      alert(res.data.message);
+    } catch (error) {
+      // console.error('Error allotting rooms:', error);
+      alert('Error allotting rooms');
+    }
+    finally {
+      setAllotProcessing(false);
+    }
+  };
+  const removeRoomAllotments = async () => {
+    setRemoveProcessing(true);
+    try {
+      await privateApi.delete(`/room/remove-allotment/${id}`);
+      // Refresh hostel details
+      const response = await privateApi.get(`/hostel/${id}`);
+      setHostel(response.data.hostel);
+      setRooms(response.data.rooms);
+      alert('Room allotments removed successfully');
+    } catch (error) {
+      console.error('Error removing room allotments:', error);
+      alert('Error removing room allotments');
+    }
+    finally {
+      setRemoveProcessing(false);
+    }
+  };
+
   if (loading) {
     return <p>Loading hostel details...</p>;
   }
@@ -43,7 +83,16 @@ const HostelDetails = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">{hostel?.name || "Hostel Name Not Found"} Room Details</h1>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1>{hostel?.name || "Hostel Name Not Found"} Room Details</h1>
+        <div>
+          <button className="btn btn-primary me-2" onClick={allotRooms} disabled={allotProcessing || removeProcessing}>{allotProcessing ? 'Processing...' : 'Allot Rooms'}</button>
+          <button className="btn btn-danger" onClick={removeRoomAllotments} disabled={allotProcessing || removeProcessing}>{removeProcessing ? 'Processing...' : 'Remove Allotments'}</button>
+          <Link to={`/hostel/${id}/manual-allocation`} className="btn btn-secondary ms-2">
+            Manual Allocation
+          </Link>
+        </div>
+      </div>
       <div className="row">
         {['Single Seater', 'Double Seater', 'Triple Seater'].map((type) => (
           <RoomTypeSection key={type} type={type} rooms={rooms} />
