@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Container } from 'react-bootstrap';
 
 const HostelAllotment = () => {
   const privateApi = useAxiosPrivate();
@@ -147,21 +147,33 @@ const HostelAllotment = () => {
         {selectedBatch && (
           <div className="mb-4">
             <div className="d-flex justify-content-between align-items-center">
-              <h5>Students in Batch {selectedBatch}</h5>
-              <div className="d-flex">
-                <span className="badge bg-primary me-2">Total: {students.length}</span>
-                <span className="badge bg-secondary me-2">CSE: {getStudentCountByProgramme('CSE')}</span>
-                <span className="badge bg-success me-2">ECE: {getStudentCountByProgramme('ECE')}</span>
-                <span className="badge bg-danger me-2">MECH: {getStudentCountByProgramme('MECH')}</span>
-                <span className="badge bg-warning text-dark me-2">SM: {getStudentCountByProgramme('SM')}</span>
-                <span className="badge bg-info text-dark">DS: {getStudentCountByProgramme('DS')}</span>
+              {/* <h5>Batch {selectedBatch}</h5> */}
+              <div className="row">
+                <div className="col-auto mb-2">
+                  <span className="badge bg-primary">Total: {students.length}</span>
+                </div>
+                <div className="col-auto mb-2">
+                  <span className="badge bg-secondary">CSE: {getStudentCountByProgramme('CSE')}</span>
+                </div>
+                <div className="col-auto mb-2">
+                  <span className="badge bg-success">ECE: {getStudentCountByProgramme('ECE')}</span>
+                </div>
+                <div className="col-auto mb-2">
+                  <span className="badge bg-danger">MECH: {getStudentCountByProgramme('MECH')}</span>
+                </div>
+                <div className="col-auto mb-2">
+                  <span className="badge bg-warning text-dark">SM: {getStudentCountByProgramme('SM')}</span>
+                </div>
+                <div className="col-auto mb-2">
+                  <span className="badge bg-info text-dark">DS: {getStudentCountByProgramme('DS')}</span>
+                </div>
               </div>
             </div>
             <div className="d-flex justify-content-between align-items-center mt-3">
-              <button className="btn btn-outline-primary" onClick={handleSelectAll}>Select All</button>
+              <button className="btn btn-sm  btn-outline-primary" onClick={handleSelectAll}>Select All</button>
               <div>
-                <span className="badge bg-info me-2">Already Allotted: {alreadyAllotted}</span>
-                <span className="badge bg-warning">Left to Allot: {leftToAllot}</span>
+                <span className="badge bg-info me-2">Allotted: {alreadyAllotted}</span>
+                <span className="badge bg-warning">Need to Allot: {leftToAllot}</span>
               </div>
             </div>
             <div className="list-group mt-3" style={{ maxHeight: '300px', overflowY: 'scroll' }}>
@@ -171,7 +183,7 @@ const HostelAllotment = () => {
                   className="list-group-item d-flex justify-content-between align-items-center"
                 >
                   <span>{student.username} ({student.rollno})</span>
-                  <span>Current Allotment: {student.currentHostel || 'Not allotted'}</span>
+                  <span>Alloted Hostel: {student.currentHostel || 'Not allotted'}</span>
                   <button
                     className={`btn btn-sm btn-${selectedStudents.includes(student._id) ? 'danger' : 'primary'}`}
                     onClick={() => handleStudentSelection(student._id)}
@@ -186,8 +198,9 @@ const HostelAllotment = () => {
         <div className="mb-4">
           <h5>Selected Students: {selectedStudents.length}</h5>
         </div>
+        
         <button
-          className="btn btn-success w-100"
+          className="btn btn-success btn-lg btn-block"
           onClick={handleAllotment}
           disabled={!selectedHostel || selectedStudents.length === 0}
         >

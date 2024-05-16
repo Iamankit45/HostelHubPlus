@@ -85,12 +85,17 @@ const HostelDetails = () => {
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>{hostel?.name || "Hostel Name Not Found"} Room Details</h1>
-        <div>
-          <button className="btn btn-primary me-2" onClick={allotRooms} disabled={allotProcessing || removeProcessing}>{allotProcessing ? 'Processing...' : 'Allot Rooms'}</button>
-          <button className="btn btn-danger" onClick={removeRoomAllotments} disabled={allotProcessing || removeProcessing}>{removeProcessing ? 'Processing...' : 'Remove Allotments'}</button>
-          <Link to={`/hostel/${id}/manual-allocation`} className="btn btn-secondary ms-2">
-            Manual Allocation
+        <div className="row">
+        <div className="col-auto mb-2">
+          <button className="btn btn-primary  btn-sm me-2" onClick={allotRooms} disabled={allotProcessing || removeProcessing}>{allotProcessing ? 'Processing...' : 'Allocate'}</button>
+          
+          <button className="btn btn-danger btn-sm" onClick={removeRoomAllotments} disabled={allotProcessing || removeProcessing}>{removeProcessing ? 'Processing...' : 'Reset'}</button>
+          </div>
+          <div className="col-auto mb-2">
+          <Link to={`/hostel/${id}/manual-allocation`} className="btn btn-secondary  btn-sm">
+            Manual
           </Link>
+          </div>
         </div>
       </div>
       <div className="row">
@@ -122,18 +127,21 @@ const RoomTypeSection = ({ type, rooms }) => {
   return (
     <div className="col-12 mb-4">
       <div className="card shadow-sm">
-        <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <div className="card-header bg-primary text-white d-flex  flex-column justify-content-center align-items-start">
           <h3>{type}</h3>
-          <div>
+          <div className="mt-2">
             <span className="me-3">
               <FaBed /> Total Rooms: {totalRooms}
             </span>
+            <br className="d-sm-none" /> {/* Hide on small screens */}
             <span className="me-3">
               <FaUser /> Occupied Seats: {occupiedSeats}
             </span>
+            <br className="d-sm-none" /> {/* Hide on small screens */}
             <span>
               <FaDoorOpen /> Vacant Seats: {vacantSeats}
             </span>
+            <br className="d-sm-none" /> {/* Hide on small screens */}
           </div>
         </div>
         <div className="card-body room-list" style={{ maxHeight: '400px', overflowY: 'auto' }}>

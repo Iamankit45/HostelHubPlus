@@ -36,12 +36,12 @@ const NoticeBoard = () => {
                     <div className="col-md-12">
                         <div className="text-md-right mb-3">
                             {user && user.role === 'staff' && ( // Check if user is staff
-                                <Link to="/create-notice" className="btn btn-primary">Create New Notice</Link>
+                                <Link to="/create-notice" className="btn btn-primary  btn-sm ">Create</Link>
                             )}
                         </div>
                     </div>
                     
-                    <div className="overflow-auto" style={{maxHeight:'600px',}}>
+                    <div className="overflow-auto" style={{maxHeight:'800px',}}>
                     <br></br>
                     {notices.map((notice) => (
                         

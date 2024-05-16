@@ -5,7 +5,7 @@ require('dotenv').config(); // Import dotenv to access environment variables
 const authMiddleware = (req, res, next) => {
     // Check if Authorization header exists
     const authHeader = req.headers.authorization;
-    console.log(authHeader);
+    // console.log(authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
