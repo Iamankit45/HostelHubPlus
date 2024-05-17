@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     font-size: 1.25rem;
+    /* font-weight: bold; */
     padding: 10px 0;
 }
 
@@ -12,13 +13,15 @@
 .custom-navbar .nav-link {
     display: flex;
     align-items: center;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    /* font-weight: bold; */
     padding: 10px 0;
 }
 
 .custom-navbar .nav-link i {
     margin-right: 5px;
     font-size: 1.25rem;
+    
 }
 
 .custom-navbar .btn-light, .custom-navbar .btn-primary {
@@ -31,7 +34,9 @@
 }
 
 .custom-navbar .navbar-nav .nav-item {
-    margin-left: 20px;
+    margin-left: 20px;    
+    
+
 }
 
 

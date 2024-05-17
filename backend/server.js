@@ -28,7 +28,7 @@ const studentRouter = require("./routes/student/studentRoutes");
 const roomRouter =require("./routes/room/roomRoutes")
 const caretakerRouter =require("./routes/caretaker/caretakerRoutes");
 const wardenRouter=require("./routes/warden/wardenRoutes");
-
+const notificationRouter = require("./routes/notification")
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/",authRouter);
@@ -38,6 +38,7 @@ app.use("/api/v1/student",studentRouter);
 app.use("/api/v1/room",roomRouter);
 app.use("/api/v1/caretaker",caretakerRouter);
 app.use("/api/v1/warden",wardenRouter);
+app.use("/api/v1/notifications/",notificationRouter);
 
 
 // Define routes

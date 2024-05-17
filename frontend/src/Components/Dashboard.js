@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserCard from '././Usercard';
 import UserContext from '../Context/UserContext';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
-import { Menu, Dropdown } from 'semantic-ui-react';
+import { List, Message, Menu, Dropdown, Icon } from 'semantic-ui-react';
 
 import "./dashboard.css"
 
@@ -13,18 +13,28 @@ const Dashboard = () => {
 
     const { user } = useContext(UserContext);
     const [hostels, setHostels] = useState([]);
+    const [notifications, setNotifications] = useState([]);
     const navigate = useNavigate();
     const [showHostelSelect, setShowHostelSelect] = useState(false);
     const [selectedHostel, setSelectedHostel] = useState('');
-    
+
     useEffect(() => {
         // Fetch the list of hostels from the API
-    privateApi.get('/hostel')
+        privateApi.get('/hostel')
             .then(response => {
                 setHostels(response.data);
             })
             .catch(error => {
                 console.error('Error fetching hostels:', error);
+            });
+        // Fetch notifications for the user
+        privateApi.get('/notifications')
+            .then(response => {
+                console.log(response);
+                setNotifications(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching notifications:', error);
             });
     }, []);
 
@@ -40,14 +50,28 @@ const Dashboard = () => {
     // Handle hostel selection from dropdown
     const handleHostelSelect = (e, { value }) => {
         setSelectedHostel(value);
-        
-       
+
+
 
 
         // Redirect to student info page with selected hostel ID
         navigate(`/${value}/student-info`);
     };
 
+
+    const handleNotificationClick = (notificationId) => {
+        // Mark the notification as read
+        privateApi.patch(`/notifications/${notificationId}/read`)
+            .then(response => {
+                // Update the notification list with the updated notification
+                setNotifications(notifications.map(notification =>
+                    notification._id === notificationId ? response.data : notification
+                ));
+            })
+            .catch(error => {
+                console.error('Error marking notification as read:', error);
+            });
+    };
     // console.log(hostelName)
     // Retrieve user information from local storage or state
     const username = localStorage.getItem('username');
@@ -55,7 +79,7 @@ const Dashboard = () => {
     const hostelId = user.hostel || localStorage.getItem('hostelId'); // Assuming the hostel ID is stored here
 
 
-    
+
     // Define navigation links based on the user's role
     let navigationLinks = [];
     if (role === 'student') {
@@ -82,7 +106,7 @@ const Dashboard = () => {
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
-            
+
         ];
     }
     else if (role == 'hosteladmin') {
@@ -95,8 +119,8 @@ const Dashboard = () => {
             { label: 'Manage Caretaker', to: '/hostel/assign-caretaker' },
             { label: 'Manage Warden', to: '/hostel/assign-warden' },
             { label: 'Add Hostel', to: '/admin/add-hostel' },
-            { label: 'Student Details', onClick: handleStudentDetailsClick},
-            
+            { label: 'Student Details', onClick: handleStudentDetailsClick },
+
 
 
 
@@ -104,6 +128,9 @@ const Dashboard = () => {
         ];
 
     }
+    // Sort notifications by creation date in descending order
+    const sortedNotifications = [...notifications].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
     return (
         <div className="ui container mt-5">
             <div className="ui stackable grid">
@@ -134,9 +161,35 @@ const Dashboard = () => {
                         )}
                     </Menu>
                 </div>
-                <div className="twelve wide column">
-                    {/* Main content area */}
+                <div className="ten wide column centered">
+                    <h2>Notifications</h2>
+                    {sortedNotifications.length === 0 ? (
+                        <Message info>
+                            <Message.Header>No Notifications</Message.Header>
+                            <p>You have no new notifications.</p>
+                        </Message>
+                    ) : (
+                        <List divided relaxed>
+                            {sortedNotifications.map(notification => (
+                                <List.Item 
+                                    key={notification._id} 
+                                    onClick={() => handleNotificationClick(notification._id)} 
+                                    style={{ cursor: 'pointer', backgroundColor: notification.isRead ? '#f9f9f9' : '#e0f7fa' }}
+                                >
+                                    <Icon name={notification.isRead ? 'envelope open outline' : 'envelope outline'} />
+                                    <List.Content>
+                                        <List.Header as='a'>{notification.message}</List.Header>
+                                        <List.Description as='a'>{new Date(notification.createdAt).toLocaleString()}</List.Description>
+                                    </List.Content>
+                                </List.Item>
+                            ))}
+                        </List>
+                    )}
                 </div>
+                <div className="two wide column">
+                    {/* Placeholder for future implementation */}
+                </div>
+
             </div>
         </div>
     );

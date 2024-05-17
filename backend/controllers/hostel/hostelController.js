@@ -4,6 +4,8 @@ const Student = require('../../models/student/student.js');
 const Caretaker = require('../../models/caretaker/caretaker.js');
 const Warden = require('../../models/warden/warden.js');
 
+const Notification = require('../../models/notification/notification.js');
+
 // Create a new hostel with room details
 exports.createHostel = async (req, res) => {
     const { name, singleSeater, doubleSeater, tripleSeater } = req.body;
@@ -161,6 +163,15 @@ exports.allotHostel = async (req, res) => {
             await Hostel.findByIdAndUpdate(hostelId, {
                 $addToSet: { students: student._id }
             });
+
+
+            // Create a notification for the student
+            const notification = new Notification({
+                sender: req.user.userId, // Assuming the sender is the logged-in user
+                recipient: student._id,
+                message: `You have been allotted to the hostel: ${hostel.name}`,
+            });
+            await notification.save();
         }
 
 
@@ -263,6 +274,14 @@ exports.assignCaretaker = async (req, res) => {
         await hostel.save();
         await newCaretaker.save();
 
+        // Create notification
+        const notification = new Notification({
+            sender: req.user.userId, // Assuming the user who makes the request is the sender
+            recipient: caretakerId,
+            message: `You have been assigned as the caretaker of ${hostel.name},So please log in again to get updated details`
+        });
+        await notification.save();
+
         res.status(200).json({ message: 'Caretaker assigned successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error assigning caretaker', error });
@@ -311,6 +330,13 @@ exports.assignWarden = async (req, res) => {
 
         await hostel.save();
         await newWarden.save();
+
+        const notification = new Notification({
+            sender: req.user.userId, // Assuming the user who makes the request is the sender
+            recipient: wardenId,
+            message: `You have been assigned as the Warden of ${hostel.name},So please log in again to get updated details`
+        });
+        await notification.save();
 
         res.status(200).json({ message: 'Warden assigned successfully' });
     } catch (error) {

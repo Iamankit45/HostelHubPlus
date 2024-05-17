@@ -1,6 +1,7 @@
 const Student = require('../../models/student/student.js');
 const Hostel = require('../../models/Hostel/hostel.js');
 const Room = require('../../models/Hostel/room.js');
+const Notification = require('../../models/notification/notification.js');
 
 
 // Function to sort students by program and roll number
@@ -20,7 +21,7 @@ const sortStudents = (students) => {
 
     return sortedStudents;
 };
-const allotRooms = async (hostelId) => {
+const allotRooms = async (hostelId,requserId) => {
     try {
         // Fetch the hostel details and populate student data
         const hostel = await Hostel.findById(hostelId).populate('students');
@@ -84,6 +85,13 @@ const allotRooms = async (hostelId) => {
 
             await student.save();
             await room.save();
+
+            const notification = new Notification({
+                sender: requserId, // Assuming the user who makes the request is the sender
+                recipient: student._id,
+                message: `You have been assigned Room ${room.roomNumber} in ${hostel.name}`
+            });
+            await notification.save();
         }
 
         const updatedHostel = await Hostel.findById(hostelId).populate('students');
@@ -99,7 +107,8 @@ const allotRooms = async (hostelId) => {
 
 exports.allotRoomsToStudents = async (req, res) => {
     const { hostelId } = req.params;
-    const result = await allotRooms(hostelId);
+    
+    const result = await allotRooms(hostelId,req.user.userId);
 
     res.status(result.status).json({ message: result.message, hostel: result.hostel, rooms: result.rooms });
 };
@@ -203,6 +212,13 @@ exports.reassignStudentRoom = async (req, res) => {
         student.room = newRoom._id;
         await student.save();
 
+        const notification = new Notification({
+            sender: req.user.userId, // Assuming the user who makes the request is the sender
+            recipient:studentId,
+            message: `You have been assigned new Room ${newRoom.roomNumber}`
+        });
+        await notification.save();
+
         res.status(200).json({ message: 'Student reassigned successfully', hostel: student.hostel });
     } catch (error) {
         console.error('Error reassigning student:', error);
@@ -248,6 +264,21 @@ exports.swapStudentRooms = async (req, res) => {
 
         await student1.save();
         await student2.save();
+
+        const notification1 = new Notification({
+            sender: req.user.userId, // Assuming the user who makes the request is the sender
+            recipient: student1._id,
+            message: `You Room has been succesfully swapped to  Room ${room2.roomNumber}`
+        });
+        await notification1.save();
+
+        const notification2 = new Notification({
+            sender: req.user.userId, // Assuming the user who makes the request is the sender
+            recipient: student2._id,
+            message: `You Room has been succesfully swapped to  Room ${room1.roomNumber}`
+        });
+        await notification2.save();
+
 
         res.status(200).json({ message: 'Rooms swapped successfully', hostel: student1.hostel });
     } catch (error) {

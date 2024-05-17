@@ -36,7 +36,7 @@ const NoticeBoard = () => {
                     <div className="col-md-12">
                         <div className="text-md-right mb-3">
                             {user && user.role!== 'student' && ( // Check if user is not student
-                                <Link to="/create-notice" className="btn btn-primary  btn-sm ">Create</Link>
+                                <Link to="/create-notice" className="btn btn-primary  btn">Create</Link>
                             )}
                         </div>
                     </div>
