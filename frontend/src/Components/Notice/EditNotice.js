@@ -29,7 +29,7 @@ const EditNoticeForm = () => {
         console.error('Error fetching notice:', error);
       }
     };
-    if (user && user.role !== 'caretaker') {
+    if (user && user.role == 'student') {
         navigate('/notice');
       }
 

@@ -43,9 +43,10 @@ const NoticeCard = ({ notice }) => {
                         <br />
 
                         <h6 className="card-subtitle mb-2  text-right">Posted by: {notice.postedBy.username}</h6>
+                        <h6 className="card-subtitle mb-2  text-right">{notice.postedBy.role}</h6>
 
                         <h6 className="card-subtitle mb-2 text-muted text-right">Date: {formatDate(notice.createdAt)}</h6>
-                        {user && user.role === 'caretaker' && (
+                        {user && user.role !== 'student' && (
                             <>
                                 <div>
                                     {/* Edit button */}

@@ -1,0 +1,132 @@
+/* .student-info-container {
+    padding: 20px;
+  }
+  
+  .student-info-title {
+    text-align: center;
+  }
+  
+  .student-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .student-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .student-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .student-icon {
+    margin-right: 10px;
+  }
+  
+  .student-name {
+    margin: 0;
+  }
+  
+  .student-details {
+    margin-top: 10px;
+  }
+  
+  .student-details p {
+    margin: 5px 0;
+  }
+   */
+
+
+
+
+/* StudentInfo.css */
+
+.student-info-container {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.student-info-title {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.student-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.student-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.student-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.student-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.student-icon {
+    margin-right: 10px;
+    font-size: 1.5em;
+    color: #050004;
+}
+
+.student-name {
+    margin: 0;
+    font-size: 1.5em;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.student-details {
+    font-family: 'Verdana', sans-serif;
+    color: #666;
+}
+
+.student-details p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+}
+
+.student-details p svg {
+    margin-right: 8px;
+    color: #007bff;
+}
+
+@media (max-width: 600px) {
+    .student-info-container {
+        padding: 10px;
+    }
+    .student-info-title {
+        font-size: 1.8em;
+    }
+    .student-details p {
+        font-size: 0.9em;
+    }
+}

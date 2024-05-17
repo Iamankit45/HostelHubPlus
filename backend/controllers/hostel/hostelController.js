@@ -181,8 +181,17 @@ exports.getStudentsByHostel = async (req, res) => {
         }
 
         // Find students assigned to this hostel
-        const students = await Student.find({ hostel: hostelId });
-
+        // const students = await Student.find({ hostel: hostelId }).sort({ programme: 1, rollno: 1 }).populate({'hostel', 'name' ,'room'});
+       
+       const students = await Student.find({hostel: hostelId}).sort({ programme: 1, rollno: 1 })
+        .populate({
+            path: 'hostel',
+            select: 'name' // Only select the name field from the hostel
+          })
+          .populate({
+            path: 'room',
+            select: 'roomNumber' // Only select the roomNumber field from the room
+          });
         res.status(200).json(students);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching students for the hostel', error });

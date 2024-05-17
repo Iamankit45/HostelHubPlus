@@ -42,7 +42,7 @@ const NoticeForm = () => {
     }
   };
   // Check if user is not caretaker, then redirect to another page
-  if (user && user.role !== 'caretaker') {
+  if (user && user.role === 'student') {
     navigate('/notice'); // Redirect to another page (change the path as needed)
     return null; // Render nothing
   }

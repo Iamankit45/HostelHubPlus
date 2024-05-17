@@ -18,6 +18,8 @@ const HostelDetails = () => {
   const [allotProcessing, setAllotProcessing] = useState(false);
   const [removeProcessing, setRemoveProcessing] = useState(false);
 
+  const role = localStorage.getItem('role');
+
   useEffect(() => {
     const fetchHostelDetails = async () => {
       try {
@@ -39,13 +41,13 @@ const HostelDetails = () => {
   const allotRooms = async () => {
     setAllotProcessing(true);
     try {
-      const res=await privateApi.post(`/room/allot-rooms/${id}`);
+      const res = await privateApi.post(`/room/allot-rooms/${id}`);
       console.log(res.data.message);
       // Refresh hostel details
       const response = await privateApi.get(`/hostel/${id}`);
       setHostel(response.data.hostel);
       setRooms(response.data.rooms);
-      
+
       alert(res.data.message);
     } catch (error) {
       // console.error('Error allotting rooms:', error);
@@ -86,15 +88,21 @@ const HostelDetails = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>{hostel?.name || "Hostel Name Not Found"} Room Details</h1>
         <div className="row">
-        <div className="col-auto mb-2">
-          <button className="btn btn-primary  btn-sm me-2" onClick={allotRooms} disabled={allotProcessing || removeProcessing}>{allotProcessing ? 'Processing...' : 'Allocate'}</button>
-          
-          <button className="btn btn-danger btn-sm" onClick={removeRoomAllotments} disabled={allotProcessing || removeProcessing}>{removeProcessing ? 'Processing...' : 'Reset'}</button>
-          </div>
           <div className="col-auto mb-2">
-          <Link to={`/hostel/${id}/manual-allocation`} className="btn btn-secondary  btn-sm">
-            Manual
-          </Link>
+            {role !== 'warden' && (
+              <>
+                <button className="btn btn-primary  btn-sm me-2" onClick={allotRooms} disabled={allotProcessing || removeProcessing}>{allotProcessing ? 'Processing...' : 'Allocate'}</button>
+
+                <button className="btn btn-danger btn-sm" onClick={removeRoomAllotments} disabled={allotProcessing || removeProcessing}>{removeProcessing ? 'Processing...' : 'Reset'}</button>
+              </>)} </div>
+          <div className="col-auto mb-2">
+            {role !== 'warden' && (
+              <Link to={`/hostel/${id}/manual-allocation`} className="btn btn-secondary  btn-sm">
+                Manual
+              </Link>
+            )}
+
+
           </div>
         </div>
       </div>
@@ -163,7 +171,7 @@ const RoomTypeSection = ({ type, rooms }) => {
 
 const RoomDetail = ({ room }) => {
   const roomClass = room.availableSeats === 0 ? 'room-card-occupied' : 'room-card';
-  
+
   return (
     <div className="col-md-3 mb-3">
       <div className={`card h-100 ${roomClass}`}>

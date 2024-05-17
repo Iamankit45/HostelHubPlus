@@ -7,6 +7,8 @@ import HomePage from "./Components/Home";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './Context/UserContext';
 import RequireAuth from './Context/RequireAuth';
+import RequireAdmin from './Context/RequireAdmin';
+import RequireNotStudent from './Context/RequireNotStudent';
 import { NoticeProvider } from './Context/NoticeContext';
 import Notice from './Components/Notice/Notice';
 import NoticeForm from './Components/Notice/NoticeForm';
@@ -18,6 +20,9 @@ import HostelAllotment from './Components/Hostel/HostelAllotment';
 import ManualRoomAllocation from './Components/Hostel/ManualRoomAllocation';
 import AssignCaretaker from './Components/Hostel/AssignCaretaker';
 import AssignWarden from './Components/Hostel/AssignWarden';
+import Unauthorized from './Components/Unauthorized';
+import ViewStudentInfo from './Components/Student/StudentInfo';
+
 import './App.css';
 
 function App() {
@@ -35,16 +40,18 @@ function App() {
           <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
           <Route path="/view-rooms" element={<ViewRoom />} />
           <Route path="/notice" element={<RequireAuth><Notice /></RequireAuth>} />
-          <Route path="/create-notice" element ={<RequireAuth><NoticeForm/></RequireAuth>}/>
-          <Route path="/edit-notice/:id" element={<RequireAuth><EditNotice/></RequireAuth>} />
-          <Route path="/admin/add-hostel" element={<RequireAuth><AddHostelForm/></RequireAuth>}/>
-          <Route path="/admin/view-hostels" element={<RequireAuth><ViewHostelDetails /></RequireAuth>}/>
+          <Route path="/create-notice" element ={<RequireAuth><RequireNotStudent><NoticeForm/></RequireNotStudent></RequireAuth>}/>
+          <Route path="/edit-notice/:id" element={<RequireAuth><RequireNotStudent><EditNotice/></RequireNotStudent></RequireAuth>} />
+          <Route path="/admin/add-hostel" element={<RequireAuth><RequireAdmin><AddHostelForm/></RequireAdmin></RequireAuth>}/>
+          <Route path="/admin/view-hostels" element={<RequireAuth><RequireAdmin><ViewHostelDetails /></RequireAdmin></RequireAuth>}/>
           
-          <Route path="/view-hostels/:id" element={<RequireAuth><SpecificHostelDetails/></RequireAuth>}/>
-          <Route path="/admin/hostel-allotment" element={<RequireAuth><HostelAllotment/></RequireAuth>}/>
-          <Route path ="/hostel/:id/manual-allocation" element={<RequireAuth><ManualRoomAllocation/></RequireAuth>}/>
-          <Route path="/hostel/assign-caretaker" element={<RequireAuth><AssignCaretaker/></RequireAuth>}/>
-          <Route path="/hostel/assign-warden" element={<RequireAuth><AssignWarden/></RequireAuth>}/>
+          <Route path="/view-hostels/:id" element={<RequireAuth><RequireNotStudent><SpecificHostelDetails/></RequireNotStudent></RequireAuth>}/>
+          <Route path="/admin/hostel-allotment" element={<RequireAuth><RequireAdmin><HostelAllotment/></RequireAdmin></RequireAuth>}/>
+          <Route path ="/hostel/:id/manual-allocation" element={<RequireAuth><RequireNotStudent><ManualRoomAllocation/></RequireNotStudent></RequireAuth>}/>
+          <Route path="/hostel/assign-caretaker" element={<RequireAuth><RequireAdmin><AssignCaretaker/></RequireAdmin></RequireAuth>}/>
+          <Route path="/hostel/assign-warden" element={<RequireAuth><RequireAdmin><AssignWarden/></RequireAdmin></RequireAuth>}/>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/:id/student-info" element={<ViewStudentInfo />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>
