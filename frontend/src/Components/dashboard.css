@@ -1,0 +1,15 @@
+
+
+@media (max-width: 767px) {
+    .ui.card{
+        width: 50% !important;
+        margin: 0;
+    }
+}
+
+  
+  @media (max-width: 767px) {
+    .four.wide.column .menu {
+      width: 50% !important;
+    }
+  }

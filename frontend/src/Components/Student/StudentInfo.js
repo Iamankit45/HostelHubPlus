@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useParams } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaPhone, FaUserGraduate, FaBed, FaBuilding, FaMale, FaFemale, FaHome, FaPhoneAlt,FaCalendarAlt, FaIdBadge  } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPhone, FaUserGraduate, FaBed, FaBuilding, FaMale, FaFemale, FaHome, FaPhoneAlt, FaCalendarAlt, FaIdBadge } from 'react-icons/fa';
 import './StudentInfo.css'; // Import custom CSS for styling
 
 const ViewStudentInfo = () => {
@@ -39,7 +39,7 @@ const ViewStudentInfo = () => {
 
   return (
     <div className="student-info-container">
-      <h1 className="student-info-title">Student Information</h1>
+      <h1 className="student-info-title">Student Information </h1>
       <div className="student-list">
         {students.map(student => (
           <div key={student._id} className="student-card">
@@ -59,7 +59,7 @@ const ViewStudentInfo = () => {
               <p><FaFemale /> Mother's Name: {student.mothersName}</p>
               <p><FaHome /> Address: {student.address}</p>
               <p><FaPhoneAlt /> Parent Contact No: {student.parentContactNo}</p>
-            
+
             </div>
           </div>
         ))}

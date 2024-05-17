@@ -3,6 +3,8 @@ import Avatar from 'react-avatar';
 import { Card, Icon, Image } from 'semantic-ui-react';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
 import UserContext from '../Context/UserContext';
+import 'semantic-ui-css/semantic.min.css';
+import profile from '../images/profile.png';
 
 const UserCard = ({ username, role, hostel }) => {
 
@@ -31,20 +33,14 @@ const UserCard = ({ username, role, hostel }) => {
 
     }, [user]);
     return (
-        <div className="card">
-
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '150px', backgroundColor: '#f0f0f0' }}>
-                <div className="rounded-circle bg-secondary d-flex justify-content-center align-items-center" style={{ width: '150px', height: '150px' }}>
-                    <span className="text-light">{firstCharacter}</span>
-                </div>
-            </div>
-            <div className="card-body">
-                <h5 className="card-title">{username}</h5>
-
-                <p className="card-text"> {role}</p>
-                <p className="card-text">{hostelName}</p>
-            </div>
-        </div>
+        <Card>
+            <Image src={profile} wrapped ui={false} />
+            <Card.Content>
+                <Card.Header>{username}</Card.Header>
+                <Card.Meta>{role}</Card.Meta>
+                <Card.Description>{hostelName}</Card.Description>
+            </Card.Content>
+        </Card>
     );
 };
 

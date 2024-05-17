@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../api/axios';
 import UserContext from '../../Context/UserContext';
 import { useAuth } from '../../Context/UserContext';
+import "./navbar.css";
 
 const Navbar = () => {
     const { user } = useContext(UserContext);
@@ -24,51 +25,44 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container-fluid ">
-
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+            <div className="container-fluid">
+                <Link className="navbar-brand" to="/">
+                    <i className="bi bi-house-fill"></i> HostelHubPlus
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
-                            <Link className="navbar-brand" to="/">HostelHubPlus</Link>
+                            <Link className="nav-link" to="/dashboard">
+                                Dashboard
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                            <Link className="nav-link" to="/notifications">
+                                <i className="bi bi-bell-fill"></i>
+                            </Link>
                         </li>
-                        <li className="nav-item ">
-                            <Link className="nav-link" to="/profile">{user ? user.username : 'Profile'}</Link>
-                        </li>
-                        <li className="nav-item ">
-                            <span className="nav-link">{user ? user.role : 'Role'}</span>
-                        </li>
-
                     </ul>
-
-
-                    <ul className="navbar-nav  ">
-
-
-
-                        {/* <li className="nav-item">
-                            <button className="btn btn-outline-light" onClick={handleLogout}>Logout</button>
-                        </li> */}
+                    <ul className="navbar-nav ms-auto">
                         {username ? (
                             <>
+                                <li className="nav-item">
+                                    <span className="nav-link">{user.username}</span>
+                                </li>
+                                <li className="nav-item">
+                                    <span className="nav-link">{user.role}</span>
+                                </li>
                                 <li className="nav-item">
                                     <button className="btn btn-light" onClick={handleLogout}>Logout</button>
                                 </li>
                             </>
                         ) : (
-                            <>
-                                <li className="nav-item">
-                                    <a class="btn btn-primary" href="/login" role="button">Login</a>
-                                    {/* <button  className="btn btn-outline-light btn-sm "><Link className="nav-link active" to="/login">LOGIN</Link></button> */}
-                                </li>
-                            </>
+                            <li className="nav-item">
+                                <a className="btn btn-primary" href="/login" role="button">Login</a>
+                            </li>
                         )}
                     </ul>
                 </div>

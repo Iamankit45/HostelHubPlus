@@ -4,7 +4,7 @@ import { NoticeContext } from '../../Context/NoticeContext'; // Import the Notic
 import { useAuth } from '../../Context/UserContext'; // Import the useAuth hook
 import { Link } from 'react-router-dom';
 import Dashboard from '../Dashboard';
-import "./notice.css"
+
 
 
 const NoticeBoard = () => {

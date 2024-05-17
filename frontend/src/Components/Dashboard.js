@@ -4,7 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserCard from '././Usercard';
 import UserContext from '../Context/UserContext';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
+import { Menu, Dropdown } from 'semantic-ui-react';
 
+import "./dashboard.css"
 
 const Dashboard = () => {
     const privateApi = useAxiosPrivate();
@@ -36,11 +38,14 @@ const Dashboard = () => {
     };
 
     // Handle hostel selection from dropdown
-    const handleHostelSelect = (e) => {
-        const selectedHostelId = e.target.value;
-        setSelectedHostel(selectedHostelId);
+    const handleHostelSelect = (e, { value }) => {
+        setSelectedHostel(value);
+        
+       
+
+
         // Redirect to student info page with selected hostel ID
-        navigate(`/${selectedHostelId}/student-info`);
+        navigate(`/${value}/student-info`);
     };
 
     // console.log(hostelName)
@@ -100,34 +105,37 @@ const Dashboard = () => {
 
     }
     return (
-        <div className="container mt-5">
-            <div className="row">
-                <div className="col-md-3">
-                    <UserCard username={user.username} role={user.role} hostel={hostelId} />
-                    <div className="list-group mt-3">
-                    {navigationLinks.map((link, index) => (
+        <div className="ui container mt-5">
+            <div className="ui stackable grid">
+                <div className="four wide column">
+                    <UserCard username={user.username} role={user.role} hostel={hostelId} profile={user.profile} />
+                    <Menu vertical fluid>
+                        {navigationLinks.map((link, index) => (
                             <React.Fragment key={index}>
                                 {link.to ? (
-                                    <Link to={link.to} className="list-group-item list-group-item-action">{link.label}</Link>
+                                    <Menu.Item as={Link} to={link.to}>{link.label}</Menu.Item>
                                 ) : (
-                                    <button className="list-group-item list-group-item-action" onClick={link.onClick}>{link.label}</button>
+                                    <Menu.Item as="a" onClick={link.onClick}>{link.label}</Menu.Item>
                                 )}
                             </React.Fragment>
                         ))}
                         {showHostelSelect && (
-                            <select className="form-select form-select-sm mt-2 " onChange={handleHostelSelect}>
-                                <option  value="">Select Hostel</option>
-                                
-                                {hostels.map(hostel => (
-                                    <option key={hostel.id} value={hostel._id} className="list-group-item list-group-item-action">{hostel.name}</option>
-                                ))}
-                                
-                            </select>
+                            <Dropdown
+                                placeholder='Select Hostel'
+                                fluid
+                                selection
+                                options={hostels.map(hostel => ({
+                                    key: hostel.id,
+                                    text: hostel.name,
+                                    value: hostel._id,
+                                }))}
+                                onChange={handleHostelSelect}
+                            />
                         )}
-                    </div>
+                    </Menu>
                 </div>
-                <div className="col-md-9">
-                    
+                <div className="twelve wide column">
+                    {/* Main content area */}
                 </div>
             </div>
         </div>

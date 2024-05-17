@@ -22,6 +22,7 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
+    "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
     "web-vitals": "^2.1.4"
   },
