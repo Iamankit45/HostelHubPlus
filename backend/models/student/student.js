@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 // Define Student Schema
 const studentSchema = new mongoose.Schema({
+
+    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     username: {
         type: String,
         required: true,

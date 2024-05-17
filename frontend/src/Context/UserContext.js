@@ -11,7 +11,8 @@ export const UserProvider = ({ children }) => {
     const storedUser = {
       username: localStorage.getItem('username'),
       token: localStorage.getItem('token'),
-      role: localStorage.getItem('role')
+      role: localStorage.getItem('role'),
+      hostelId :localStorage.getItem('hostelId'),
     };
     setUser(storedUser);
   }, []);

@@ -23,8 +23,8 @@ export const checkEmailUsername = (emailUsername) => API.post('users/checkPassAn
 export const login = async (formData) => {
   try {
     const response = await API.post('/login', formData, { withCredentials: true });
-    const { username, token, role } = response.data;
-    return { username, token, role }; // Return username, token, and role
+    const { username, token, role ,hostelId} = response.data;
+    return { username, token, role,hostelId }; // Return username, token, and role
   } catch (error) {
     throw error; // Throw error if login fails
   }

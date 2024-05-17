@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 const ViewHostelDetails = () => {
     const privateApi = useAxiosPrivate(); // Initialize private API instance
@@ -47,9 +47,12 @@ const ViewHostelDetails = () => {
                                         <li className="list-group-item">Triple Seater: {hostel.tripleSeater}</li>
                                         <li className="list-group-item">Total Rooms: {hostel.totalRooms}</li>
                                         <li className="list-group-item">Max Occupancy: {hostel.maxOccupancy}</li>
+                                        <li className="list-group-item">Caretaker: {hostel.caretaker ? hostel.caretaker.username : 'Not Assigned'}</li>
+                                        <li className="list-group-item">Warden: {hostel.warden ? hostel.warden.username : 'Not Assigned'}</li>
+
                                     </ul>
                                     {/* Button to view specific hostel details */}
-                                    <Link to={`/admin/view-hostels/${hostel._id}`} className="btn  btn-outline-info btn-sm mt-3">
+                                    <Link to={`/view-hostels/${hostel._id}`} className="btn  btn-outline-info btn-sm mt-3">
                                         View Details
                                     </Link>
 

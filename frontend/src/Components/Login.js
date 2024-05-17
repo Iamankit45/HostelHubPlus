@@ -23,14 +23,20 @@ const Login = ({ history }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { username, token, role } = await login(formData);
-
-            setUser({ username, token, role });
+            const { username, token, role,hostelId } = await login(formData);
+            
+            console.log(hostelId);
+            setUser({ username, token, role,hostelId  });
 
             // Store user information in local storage or state
             localStorage.setItem('username', username);
             localStorage.setItem('token', token);
             localStorage.setItem('role', role);
+            if (hostelId) {
+                
+                localStorage.setItem('hostelId', hostelId);  // Save the hostel ID
+            }
+
             
            
             navigate('/dashboard');

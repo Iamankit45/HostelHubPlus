@@ -3,8 +3,9 @@ const bcrypt = require('bcrypt');
 const User = require('../../models/user/user');
 
 const Student = require('../../models/student/student');
-const Faculty = require('../../models/faculty/faculty');
-const Staff = require('../../models/staff/staff');
+
+const Caretaker =require('../../models/caretaker/caretaker');
+const Warden =require('../../models/warden/warden');
 
 
 const mongoose = require("mongoose");
@@ -28,21 +29,19 @@ exports.createUser = async (req, res) => {
     const newUser = new User({ username, password: hashedPassword, role });
     await newUser.save();
 
-    // If role is 'student', create student record
+    
+
+    // Create the corresponding role entry with reference to the user ID and include the username
     if (role === 'student') {
-      const newStudent = new Student({ username });
-      await newStudent.save();
-    }
-    // If role is 'staff', create staff record
-    else if (role === 'staff') {
-      const newStaff = new Staff({ username });
-      await newStaff.save();
-    }
-    // If role is 'faculty', create faculty record
-    else if (role === 'faculty') {
-      const newFaculty = new Faculty({ username });
-      await newFaculty.save();
-    }
+      const student = new Student({ _id: newUser._id, username });
+      await student.save();
+  } else if (role === 'caretaker') {
+      const caretaker = new Caretaker({ _id: newUser._id, username });
+      await caretaker.save();
+  } else if (role === 'warden') {
+      const warden = new Warden({ _id: newUser._id, username });
+      await warden.save();
+  }
 
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {

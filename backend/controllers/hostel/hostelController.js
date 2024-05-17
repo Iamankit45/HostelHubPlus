@@ -1,12 +1,20 @@
 const Hostel = require('../../models/Hostel/hostel.js');
 const Room = require('../../models/Hostel/room.js');
 const Student = require('../../models/student/student.js');
+const Caretaker = require('../../models/caretaker/caretaker.js');
+const Warden = require('../../models/warden/warden.js');
 
 // Create a new hostel with room details
 exports.createHostel = async (req, res) => {
     const { name, singleSeater, doubleSeater, tripleSeater } = req.body;
 
     try {
+
+        // Check if a hostel with the same name already exists
+        const existingHostel = await Hostel.findOne({ name });
+        if (existingHostel) {
+            return res.status(400).json({ message: 'Hostel name already exists' });
+        }
         // Calculate total rooms and max occupancy
         const totalRooms = singleSeater + doubleSeater + tripleSeater;
         const maxOccupancy = singleSeater * 1 + doubleSeater * 2 + tripleSeater * 3;
@@ -79,7 +87,7 @@ exports.removeHostel = async (req, res) => {
 
 exports.getHostels = async (req, res) => {
     try {
-        const hostels = await Hostel.find();
+        const hostels = await Hostel.find().populate('caretaker').populate('warden');;
         res.status(200).json(hostels);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -200,4 +208,128 @@ exports.getHostelRooms = async (req, res) => {
         res.status(500).json({ message: 'Error fetching rooms', error });
     }
 };
+
+
+
+exports.assignCaretaker = async (req, res) => {
+    try {
+        const { hostelId, caretakerId } = req.body;
+
+        // Find the hostel to be updated
+        const hostel = await Hostel.findById(hostelId);
+        if (!hostel) {
+            return res.status(404).json({ message: 'Hostel not found' });
+        }
+
+        // Find the new caretaker to be assigned
+        const newCaretaker = await Caretaker.findById(caretakerId);
+        if (!newCaretaker) {
+            return res.status(404).json({ message: 'Caretaker not found' });
+        }
+
+        // Remove the current caretaker from the hostel, if any
+        if (hostel.caretaker) {
+
+            const previousCaretaker = await Caretaker.findById(hostel.caretaker);
+            if (previousCaretaker) {
+                previousCaretaker.hostel = null;
+
+                await previousCaretaker.save();
+            }
+        }
+
+        // Remove the new caretaker from their previous hostel, if any
+        if (newCaretaker.hostel) {
+            const previousHostel = await Hostel.findById(newCaretaker.hostel);
+            if (previousHostel) {
+                previousHostel.caretaker = null;
+                await previousHostel.save();
+            }
+        }
+
+        // Assign the new caretaker to the hostel
+        hostel.caretaker = caretakerId;
+        newCaretaker.hostel = hostelId;
+
+        await hostel.save();
+        await newCaretaker.save();
+
+        res.status(200).json({ message: 'Caretaker assigned successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error assigning caretaker', error });
+        console.log(error);
+    }
+};
+
+// Assign a warden to a hostel
+exports.assignWarden = async (req, res) => {
+    try {
+        const { hostelId, wardenId } = req.body;
+
+        // Find the hostel to be updated
+        const hostel = await Hostel.findById(hostelId);
+        if (!hostel) {
+            return res.status(404).json({ message: 'Hostel not found' });
+        }
+
+        // Find the new warden to be assigned
+        const newWarden = await Warden.findById(wardenId);
+        if (!newWarden) {
+            return res.status(404).json({ message: 'Warden not found' });
+        }
+
+        // Remove the current warden from the hostel, if any
+        if (hostel.warden) {
+            const previousWarden = await Warden.findById(hostel.warden);
+            if (previousWarden) {
+                previousWarden.hostel = null;
+                await previousWarden.save();
+            }
+        }
+
+        // Remove the new warden from their previous hostel, if any
+        if (newWarden.hostel) {
+            const previousHostel = await Hostel.findById(newWarden.hostel);
+            if (previousHostel) {
+                previousHostel.warden = null;
+                await previousHostel.save();
+            }
+        }
+
+        // Assign the new warden to the hostel
+        hostel.warden = wardenId;
+        newWarden.hostel = hostelId;
+
+        await hostel.save();
+        await newWarden.save();
+
+        res.status(200).json({ message: 'Warden assigned successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error assigning warden', error });
+    }
+};
+
+
+// Route to get all hostels with caretakers and wardens
+
+
+exports.hostelCaretakerWarden = async (req, res) => {
+    try {
+        const hostels = await Hostel.find().populate('caretaker warden');
+        
+        res.json(hostels);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+
+// Route to get all caretakers
+
+
+
+// Route to get all wardens
+
+
 

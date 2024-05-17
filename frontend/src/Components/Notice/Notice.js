@@ -17,7 +17,7 @@ const NoticeBoard = () => {
         return <p>Loading notices...</p>;
     }
     let navigationLinks = [];
-    if (user && user.role === 'staff') {
+    if (user && user.role === 'caretaker') {
         navigationLinks = [
             {
                 label: 'Create Notice', to: '/create-notice',
@@ -35,7 +35,7 @@ const NoticeBoard = () => {
 
                     <div className="col-md-12">
                         <div className="text-md-right mb-3">
-                            {user && user.role === 'staff' && ( // Check if user is staff
+                            {user && user.role === 'caretaker' && ( // Check if user is caretaker
                                 <Link to="/create-notice" className="btn btn-primary  btn-sm ">Create</Link>
                             )}
                         </div>

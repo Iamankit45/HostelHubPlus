@@ -41,8 +41,8 @@ const NoticeForm = () => {
       console.error('Error creating notice:', error);
     }
   };
-  // Check if user is not staff, then redirect to another page
-  if (user && user.role !== 'staff') {
+  // Check if user is not caretaker, then redirect to another page
+  if (user && user.role !== 'caretaker') {
     navigate('/notice'); // Redirect to another page (change the path as needed)
     return null; // Render nothing
   }

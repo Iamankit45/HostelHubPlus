@@ -19,6 +19,7 @@ const Dashboard = () => {
     // Retrieve user information from local storage or state
     const username = localStorage.getItem('username');
     const role = localStorage.getItem('role');
+    const hostelId = user.hostel || localStorage.getItem('hostelId'); // Assuming the hostel ID is stored here
 
     // Define navigation links based on the user's role
     let navigationLinks = [];
@@ -29,12 +30,13 @@ const Dashboard = () => {
             { label: 'View Notice Board', to: '/notice' },
             // Add more student-specific links here
         ];
-    } else if (role === 'staff') {
+    } else if (role === 'caretaker') {
         navigationLinks = [
             { label: 'Approve Leave', to: '/approve-leave' },
             { label: 'Manage Inventory', to: '/manage-inventory' },
             {label: 'Manage Notice Board', to: '/notice' },
-            // Add more staff-specific links here
+            { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
+            // Add more caretaker-specific links here
         ];
     }
     return (

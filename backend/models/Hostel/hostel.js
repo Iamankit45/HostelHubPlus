@@ -8,6 +8,14 @@ const hostelSchema = new mongoose.Schema({
   totalRooms: { type: Number, required: true },
   maxOccupancy: { type: Number, required: true },
   students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }], 
+  caretaker: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Caretaker',
+  },
+  warden: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Warden',
+  },
 
 });
 

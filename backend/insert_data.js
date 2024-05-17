@@ -23,7 +23,7 @@ async function insertData() {
       await user.save();
 
       // Create Student
-      const student = new Student({ username, ...studentInfo });
+      const student = new Student({ _id: user._id,username, ...studentInfo });
       await student.save();
 
       console.log(`Inserted data for ${username}`);
