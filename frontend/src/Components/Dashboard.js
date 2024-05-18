@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserCard from '././Usercard';
 import UserContext from '../Context/UserContext';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
-import { List, Message, Menu, Dropdown, Icon } from 'semantic-ui-react';
+import { List, Message, Menu, Dropdown, Icon, Segment, Header } from 'semantic-ui-react';
+import StudentDashboard from './Student/StudentDashboard'; // Import the StudentDashboard component
 
 import "./dashboard.css"
 
@@ -96,6 +97,7 @@ const Dashboard = () => {
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
+            {label:'Student Attendance',to:`/student/mark-attendance`},
             // Add more caretaker-specific links here
         ];
     }
@@ -106,6 +108,7 @@ const Dashboard = () => {
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
+            {label:'Student Attendance',to:`/student/mark-attendance`},
 
         ];
     }
@@ -161,34 +164,42 @@ const Dashboard = () => {
                         )}
                     </Menu>
                 </div>
-                <div className="ten wide column centered">
-                    <h2>Notifications</h2>
-                    {sortedNotifications.length === 0 ? (
-                        <Message info>
-                            <Message.Header>No Notifications</Message.Header>
-                            <p>You have no new notifications.</p>
-                        </Message>
-                    ) : (
-                        <List divided relaxed>
-                            {sortedNotifications.map(notification => (
-                                <List.Item 
-                                    key={notification._id} 
-                                    onClick={() => handleNotificationClick(notification._id)} 
-                                    style={{ cursor: 'pointer', backgroundColor: notification.isRead ? '#f9f9f9' : '#e0f7fa' }}
-                                >
-                                    <Icon name={notification.isRead ? 'envelope open outline' : 'envelope outline'} />
-                                    <List.Content>
-                                        <List.Header as='a'>{notification.message}</List.Header>
-                                        <List.Description as='a'>{new Date(notification.createdAt).toLocaleString()}</List.Description>
-                                    </List.Content>
-                                </List.Item>
-                            ))}
-                        </List>
+
+                <div className="seven wide column">
+                    {role === 'student' && (
+                        <StudentDashboard />
                     )}
+                    
                 </div>
-                <div className="two wide column">
-                    {/* Placeholder for future implementation */}
+                <div className="five wide column centered">
+                    <h2>Notifications</h2>
+                    <div className="notifications-list">
+                        {sortedNotifications.length === 0 ? (
+                            <Message info>
+                                <Message.Header>No Notifications</Message.Header>
+                                <p>You have no new notifications.</p>
+                            </Message>
+                        ) : (
+                            <List divided relaxed>
+                                {sortedNotifications.map(notification => (
+                                    <List.Item
+                                        key={notification._id}
+                                        onClick={() => handleNotificationClick(notification._id)}
+                                        className={notification.isRead ? 'read-notification' : 'unread-notification'}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <Icon name={notification.isRead ? 'envelope open outline' : 'envelope outline'} />
+                                        <List.Content>
+                                            <List.Header as='a'>{notification.message}</List.Header>
+                                            <List.Description as='a'>{new Date(notification.createdAt).toLocaleString()}</List.Description>
+                                        </List.Content>
+                                    </List.Item>
+                                ))}
+                            </List>
+                        )}
+                    </div>
                 </div>
+
 
             </div>
         </div>

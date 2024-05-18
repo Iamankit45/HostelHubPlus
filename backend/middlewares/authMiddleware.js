@@ -12,13 +12,15 @@ const authMiddleware = (req, res, next) => {
 
     // Extract JWT token from Authorization header
     const token = authHeader.split(' ')[1];
+    
 
     try {
         // Verify JWT token
-        const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET); // Replace 'your_secret_key' with your actual secret key
+        const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
 
         // Attach user information to request object
         req.user = decoded;
+        // console.log(req.user.userId);
         
         // Proceed to next middleware or route handler
         next();

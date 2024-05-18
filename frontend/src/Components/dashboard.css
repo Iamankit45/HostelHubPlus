@@ -13,3 +13,95 @@
       width: 50% !important;
     }
   }
+
+/* dashboard.css */
+/* dashboard.css */
+.notifications-list {
+    max-height: 300px; /* Set the max height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    /* padding: 2px; */
+    /* margin: 10px; */
+    border: 1px solid #f1e9e9;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.read-notification {
+    background-color: #f9f9f9;
+}
+
+.unread-notification {
+    background-color: #b1def7;
+    font-weight: bold;
+}
+
+.ui.stackable.grid {
+    justify-content: space-between;
+}
+
+
+/* Add this to your CSS file, e.g., StudentDashboard.css */
+/* Add this to your CSS file, e.g., StudentDashboard.css */
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.compact-calendar {
+    width: 100%;
+    max-width: 700px; /* Set a max-width for the calendar */
+    margin: auto;
+}
+
+.compact-calendar .react-calendar__tile {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.compact-calendar .react-calendar__tile--now {
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
+.compact-calendar .react-calendar__tile--active {
+    background: #2185d0;
+    color: white;
+    border-radius: 5px;
+}
+
+.compact-calendar .react-calendar__tile--present {
+    background: green;
+    color: white;
+    border-radius: 5px;
+}
+
+.compact-calendar .react-calendar__tile--absent {
+    background: red;
+    color: white;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .compact-calendar .react-calendar__tile {
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .compact-calendar .react-calendar__tile {
+        height: 30px;
+    }
+}
+

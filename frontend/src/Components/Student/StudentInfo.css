@@ -130,3 +130,15 @@
         font-size: 0.9em;
     }
 }
+
+.mark-attendance-segment {
+  margin: 60px auto !important;
+  padding: auto;
+  
+  text-align: center !important;
+  
+  max-width: 600px;
+  max-height: 800px;
+  
+  
+}

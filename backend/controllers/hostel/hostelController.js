@@ -167,7 +167,7 @@ exports.allotHostel = async (req, res) => {
 
             // Create a notification for the student
             const notification = new Notification({
-                sender: req.user.userId, // Assuming the sender is the logged-in user
+                sender: req.user.userId, 
                 recipient: student._id,
                 message: `You have been allotted to the hostel: ${hostel.name}`,
             });
@@ -332,7 +332,7 @@ exports.assignWarden = async (req, res) => {
         await newWarden.save();
 
         const notification = new Notification({
-            sender: req.user.userId, // Assuming the user who makes the request is the sender
+            sender: req.user.userId, 
             recipient: wardenId,
             message: `You have been assigned as the Warden of ${hostel.name},So please log in again to get updated details`
         });

@@ -45,7 +45,7 @@ auth_router.post('/login', async (req, res) => {
     // console.log(hostelId);
 
     // Generate token
-    const token = jwt.sign({ userId: user._id ,role: user.role ,hostelId: hostelId}, '75b33bcaf37ee6058def91bd2f88bd7c0e94f5f307a3a7b3d20e4a1ab4e9a0daec78bd5b49453b15e851c68bb818bcf73857038e6321066eb14e9a064c89dd84', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id ,role: user.role ,hostelId: hostelId}, '75b33bcaf37ee6058def91bd2f88bd7c0e94f5f307a3a7b3d20e4a1ab4e9a0daec78bd5b49453b15e851c68bb818bcf73857038e6321066eb14e9a064c89dd84', { expiresIn: '20h' });
 
     // Send token, userId, and role in response
     res.json({ token, userId: user._id,username:user.username, role: user.role ,hostelId: hostelId});

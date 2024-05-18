@@ -22,6 +22,8 @@ import AssignCaretaker from './Components/Hostel/AssignCaretaker';
 import AssignWarden from './Components/Hostel/AssignWarden';
 import Unauthorized from './Components/Unauthorized';
 import ViewStudentInfo from './Components/Student/StudentInfo';
+import MarkAttendance from './Components/Student/MarkAttendance';
+import StudentDashboard from './Components/Student/StudentDashboard';
 
 import './App.css';
 
@@ -52,6 +54,8 @@ function App() {
           <Route path="/hostel/assign-warden" element={<RequireAuth><RequireAdmin><AssignWarden/></RequireAdmin></RequireAuth>}/>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/:id/student-info" element={<ViewStudentInfo />} />
+          <Route path="/student/mark-attendance" element={<MarkAttendance />} />
+          <Route path="/student/attendance" element={<StudentDashboard />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

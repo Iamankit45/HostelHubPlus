@@ -212,6 +212,7 @@ exports.reassignStudentRoom = async (req, res) => {
         student.room = newRoom._id;
         await student.save();
 
+        console.log(studentId);
         const notification = new Notification({
             sender: req.user.userId, // Assuming the user who makes the request is the sender
             recipient:studentId,
