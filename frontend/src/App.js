@@ -26,6 +26,9 @@ import MarkAttendance from './Components/Student/MarkAttendance';
 import StudentDashboard from './Components/Student/StudentDashboard';
 import StudentComplaints from './Components/Complaint/StudentComplaint';
 import  CaretakerComplaints from './Components/Complaint/CaretakerComplaint'
+import StudentLeaveRequest from './Components/Leave/StudentLeaveRequest'
+import LeaveRequestsForCaretaker from './Components/Leave/CaretakerLeaveRequest'
+import StudentLeaveStatus from './Components/Leave/StudentLeaveStatus'
 import './App.css';
 
 function App() {
@@ -59,6 +62,9 @@ function App() {
           <Route path="/student/attendance" element={<RequireAuth><StudentDashboard /></RequireAuth>} />
           <Route path="/student/register-complaint" element={<RequireAuth><StudentComplaints /></RequireAuth>} />
           <Route path ="/caretaker/complaints" element={ <RequireAuth><RequireNotStudent><CaretakerComplaints/></RequireNotStudent></RequireAuth>}/>
+          <Route path ="/student/create-leave" element={ <RequireAuth><StudentLeaveRequest/></RequireAuth>}/>
+          <Route path="/caretaker/leave" element={<RequireAuth><LeaveRequestsForCaretaker/></RequireAuth>}/>
+          <Route path="/student/leave-status" element={ <RequireAuth><StudentLeaveStatus/></RequireAuth>}/>
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

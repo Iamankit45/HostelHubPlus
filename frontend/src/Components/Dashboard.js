@@ -86,14 +86,15 @@ const Dashboard = () => {
     if (role === 'student') {
         navigationLinks = [
             { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
-            { label: 'Apply for Leave', to: '/apply-for-leave' },
+            { label: 'Apply for Leave', to: '/student/create-leave' },
             { label: 'View Notice Board', to: '/notice' },
             {label:'Complaints',to :'/student/register-complaint'},
+            {label:'Leave Status', to:'/student/leave-status'},
             // Add more student-specific links here
         ];
     } else if (role === 'caretaker') {
         navigationLinks = [
-            { label: 'Approve Leave', to: '/approve-leave' },
+            { label: 'Approve Leave', to: '/caretaker/leave' },
             { label: 'Manage Inventory', to: '/manage-inventory' },
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
@@ -125,9 +126,6 @@ const Dashboard = () => {
             { label: 'Manage Warden', to: '/hostel/assign-warden' },
             { label: 'Add Hostel', to: '/admin/add-hostel' },
             { label: 'Student Details', onClick: handleStudentDetailsClick },
-
-
-
 
             // Add more caretaker-specific links here
         ];

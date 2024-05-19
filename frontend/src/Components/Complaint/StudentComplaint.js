@@ -66,7 +66,7 @@ const StudentComplaint = () => {
                 <Icon name="list alternate" />
                 Your Complaints
             </Header>
-            <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+            <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
             <Table celled >
                 <Table.Header>
                     <Table.Row>
