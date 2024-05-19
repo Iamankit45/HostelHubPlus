@@ -85,7 +85,7 @@ const Dashboard = () => {
     let navigationLinks = [];
     if (role === 'student') {
         navigationLinks = [
-            { label: 'View Rooms', to: '/view-rooms' },
+            { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Apply for Leave', to: '/apply-for-leave' },
             { label: 'View Notice Board', to: '/notice' },
             // Add more student-specific links here

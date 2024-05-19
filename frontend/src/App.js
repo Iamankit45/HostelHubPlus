@@ -47,7 +47,7 @@ function App() {
           <Route path="/admin/add-hostel" element={<RequireAuth><RequireAdmin><AddHostelForm/></RequireAdmin></RequireAuth>}/>
           <Route path="/admin/view-hostels" element={<RequireAuth><RequireAdmin><ViewHostelDetails /></RequireAdmin></RequireAuth>}/>
           
-          <Route path="/view-hostels/:id" element={<RequireAuth><RequireNotStudent><SpecificHostelDetails/></RequireNotStudent></RequireAuth>}/>
+          <Route path="/view-hostels/:id" element={<RequireAuth><SpecificHostelDetails/></RequireAuth>}/>
           <Route path="/admin/hostel-allotment" element={<RequireAuth><RequireAdmin><HostelAllotment/></RequireAdmin></RequireAuth>}/>
           <Route path ="/hostel/:id/manual-allocation" element={<RequireAuth><RequireNotStudent><ManualRoomAllocation/></RequireNotStudent></RequireAuth>}/>
           <Route path="/hostel/assign-caretaker" element={<RequireAuth><RequireAdmin><AssignCaretaker/></RequireAdmin></RequireAuth>}/>

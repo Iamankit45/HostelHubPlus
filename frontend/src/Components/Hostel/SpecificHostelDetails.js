@@ -89,14 +89,14 @@ const HostelDetails = () => {
         <h1>{hostel?.name || "Hostel Name Not Found"} Room Details</h1>
         <div className="row">
           <div className="col-auto mb-2">
-            {role !== 'warden' && (
+            {role !== 'warden' && role!='student' && (
               <>
                 <button className="btn btn-primary  btn-sm me-2" onClick={allotRooms} disabled={allotProcessing || removeProcessing}>{allotProcessing ? 'Processing...' : 'Allocate'}</button>
 
                 <button className="btn btn-danger btn-sm" onClick={removeRoomAllotments} disabled={allotProcessing || removeProcessing}>{removeProcessing ? 'Processing...' : 'Reset'}</button>
               </>)} </div>
           <div className="col-auto mb-2">
-            {role !== 'warden' && (
+            {role !== 'warden' && role!='student'&& (
               <Link to={`/hostel/${id}/manual-allocation`} className="btn btn-secondary  btn-sm">
                 Manual
               </Link>
