@@ -95,10 +95,12 @@ const Dashboard = () => {
         ];
     } else if (role === 'caretaker') {
         navigationLinks = [
-            { label: 'Approve Leave', to: '/caretaker/leave' },
+            
+            { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
+            { label: 'Manage Leave', to: '/caretaker/leave' },
             // { label: 'Manage Inventory', to: '/manage-inventory' },
             { label: 'Manage Notice Board', to: '/notice' },
-            { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
+            
             { label: 'Student Details', to: `/${hostelId}/student-info` },
             {label:'Student Attendance',to:`/student/mark-attendance`},
             {label:'Complaints',to:`/caretaker/complaints`},

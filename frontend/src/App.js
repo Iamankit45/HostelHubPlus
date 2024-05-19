@@ -32,6 +32,9 @@ import StudentLeaveStatus from './Components/Leave/StudentLeaveStatus'
 import ViewFinesForCaretaker from './Components/Fine/ViewFInes';
 import StudentFines from './Components/Fine/StudentFine';
 import ImposeFine from './Components/Fine/ImposeFine';
+import AddItemForm from './Components/Inventory/AddInventory';
+import EditItemForm from './Components/Inventory/EditItemForm';
+import InventoryList from './Components/Inventory/InventoryList';
 
 import './App.css';
 
@@ -73,6 +76,9 @@ function App() {
           <Route path="/caretaker/impose-fine" element={<RequireAuth><ImposeFine/></RequireAuth>}/>
           <Route path="/caretaker/view-fines" element={<RequireAuth><ViewFinesForCaretaker/></RequireAuth>}/>
 
+          <Route path="/addInventory/"element={<RequireAuth><AddItemForm/></RequireAuth>}/>
+          <Route path="/edit-Inventory/"element={<RequireAuth><EditItemForm/></RequireAuth>}/>
+          <Route path="/inventory/"element={<RequireAuth><InventoryList/></RequireAuth>}/>
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

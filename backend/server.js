@@ -31,6 +31,8 @@ const wardenRouter=require("./routes/warden/wardenRoutes");
 const notificationRouter = require("./routes/notification")
 const complaintRouter=require("./routes/complaint/complaintRoutes");
 const fineRouter =require("./routes/fine/fineRoutes");
+const inventoryRouter = require("./routes/inventory/inventoryRoutes");
+
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/",authRouter);
@@ -43,6 +45,7 @@ app.use("/api/v1/warden",wardenRouter);
 app.use("/api/v1/notifications/",notificationRouter);
 app.use("/api/v1/complaint",complaintRouter);
 app.use("/api/v1/fine",fineRouter);
+app.use("/api/v1/inventory",inventoryRouter)
 
 // Define routes
 app.get('/', (req, res) => {
