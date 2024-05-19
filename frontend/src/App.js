@@ -24,7 +24,8 @@ import Unauthorized from './Components/Unauthorized';
 import ViewStudentInfo from './Components/Student/StudentInfo';
 import MarkAttendance from './Components/Student/MarkAttendance';
 import StudentDashboard from './Components/Student/StudentDashboard';
-
+import StudentComplaints from './Components/Complaint/StudentComplaint';
+import  CaretakerComplaints from './Components/Complaint/CaretakerComplaint'
 import './App.css';
 
 function App() {
@@ -53,9 +54,11 @@ function App() {
           <Route path="/hostel/assign-caretaker" element={<RequireAuth><RequireAdmin><AssignCaretaker/></RequireAdmin></RequireAuth>}/>
           <Route path="/hostel/assign-warden" element={<RequireAuth><RequireAdmin><AssignWarden/></RequireAdmin></RequireAuth>}/>
           <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/:id/student-info" element={<ViewStudentInfo />} />
-          <Route path="/student/mark-attendance" element={<MarkAttendance />} />
-          <Route path="/student/attendance" element={<StudentDashboard />} />
+          <Route path="/:id/student-info" element={<RequireAuth><RequireNotStudent><ViewStudentInfo /></RequireNotStudent></RequireAuth>} />
+          <Route path="/student/mark-attendance" element={<RequireAuth><RequireNotStudent><MarkAttendance /></RequireNotStudent></RequireAuth>} />
+          <Route path="/student/attendance" element={<RequireAuth><StudentDashboard /></RequireAuth>} />
+          <Route path="/student/register-complaint" element={<RequireAuth><StudentComplaints /></RequireAuth>} />
+          <Route path ="/caretaker/complaints" element={ <RequireAuth><RequireNotStudent><CaretakerComplaints/></RequireNotStudent></RequireAuth>}/>
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

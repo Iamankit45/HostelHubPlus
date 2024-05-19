@@ -88,6 +88,7 @@ const Dashboard = () => {
             { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Apply for Leave', to: '/apply-for-leave' },
             { label: 'View Notice Board', to: '/notice' },
+            {label:'Complaints',to :'/student/register-complaint'},
             // Add more student-specific links here
         ];
     } else if (role === 'caretaker') {
@@ -98,6 +99,7 @@ const Dashboard = () => {
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
             {label:'Student Attendance',to:`/student/mark-attendance`},
+            {label:'Complaints',to:`/caretaker/complaints`},
             // Add more caretaker-specific links here
         ];
     }
