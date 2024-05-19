@@ -1,6 +1,6 @@
 const Student = require('../../models/student/student.js');
 const Attendance = require('../../models/student/attendance.js')
-const LeaveRequest =require('../../models/student/leave.js')
+const LeaveRequest = require('../../models/student/leave.js')
 const Caretaker = require('../../models/caretaker/caretaker.js');
 const Notification = require('../../models/notification/notification.js');
 const User = require('../../models/user/user');
@@ -12,7 +12,7 @@ exports.getStudentDetails = async (req, res) => {
             return res.status(400).json({ message: 'Batch is required' });
         }
 
-        
+
         const students = await Student.find({ batch }).sort({ programme: 1, rollno: 1 }).populate('hostel', 'name');;
 
         res.status(200).json(students);
@@ -35,7 +35,7 @@ exports.updateAttendance = async (req, res) => {
 
         attendance.records.forEach(record => {
             const update = attendances.find(a => a.studentId === record.student.toString());
-            
+
             if (update) {
                 record.status = update.status;
             }
@@ -87,8 +87,8 @@ exports.getAttendance = async (req, res) => {
         // console.log(req.user.userId);
         // Fetch attendance records for the student
         const attendance = await Attendance.find({ 'records.student': studentId })
-        
-       
+
+
         const studentAttendance = [];
         // Iterate through attendance records to extract date and status for the student
         // Iterate through attendance records
@@ -97,19 +97,19 @@ exports.getAttendance = async (req, res) => {
 
             // Iterate through records of each attendance record
             record.records.forEach(item => {
-               
+
                 // Check if the record corresponds to the desired student
                 if (item.student.toString() === studentId) {
-                    
+
                     studentAttendanceRecord.status = item.status;
                 }
             });
 
             studentAttendance.push(studentAttendanceRecord);
         });
-        
+
         // console.log(studentAttendance);
-        res.status(200).json({ studentAttendance  });
+        res.status(200).json({ studentAttendance });
     } catch (error) {
         console.error('Error fetching attendance:', error);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -123,33 +123,35 @@ exports.getAttendance = async (req, res) => {
 // Function to create a new leave request
 exports.createLeaveRequest = async (req, res) => {
 
-    const studentId=req.user.userId;
-    
+    const studentId = req.user.userId;
+
 
     try {
-        
-        const student =await Student.findById({_id:studentId});
-        const hostel=student.hostel;
-        const {startDate, endDate,reason } = req.body;
+
+        const student = await Student.findById({ _id: studentId });
+        const hostel = student.hostel;
+        const { startDate, endDate, reason } = req.body;
         const newLeaveRequest = await LeaveRequest.create({
             student,
             hostel,
             startDate,
-            endDate,reason
+            endDate, reason
         });
 
         // Create notification for the caretaker
         const caretaker = await Caretaker.findOne({ hostel: hostel });
 
-        
 
-        
-        const notification = new Notification({
-            sender: req.user.userId,
-            recipient: caretaker._id,
-            message: ` ${student.username} has requested for leave`
-        });
-        await notification.save();
+        if (caretaker) {
+            const notification = new Notification({
+                sender: req.user.userId,
+                recipient: caretaker._id,
+                message: ` ${student.username} has requested for leave`
+            });
+            await notification.save();
+        }
+
+
 
         res.status(201).json(newLeaveRequest);
     } catch (error) {
@@ -160,10 +162,10 @@ exports.createLeaveRequest = async (req, res) => {
 
 // Function to get all leave requests for a student
 exports.getLeaveRequestsForStudent = async (req, res) => {
-    
+
     const studentId = req.user.userId;
     try {
-        
+
         const leaveRequests = await LeaveRequest.find({ student: studentId }).populate('hostel');
         res.status(200).json(leaveRequests);
     } catch (error) {
@@ -189,9 +191,9 @@ exports.getLeaveRequestsForCaretaker = async (req, res) => {
 exports.approveLeaveRequest = async (req, res) => {
     try {
         const leaveRequestId = req.params.id;
-       
+
         const updatedLeaveRequest = await LeaveRequest.findByIdAndUpdate(leaveRequestId, { status: 'approved' });
-       
+
         const notification = new Notification({
             sender: req.user.userId,
             recipient: updatedLeaveRequest.student,

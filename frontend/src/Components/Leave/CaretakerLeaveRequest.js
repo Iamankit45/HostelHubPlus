@@ -88,9 +88,10 @@ const LeaveRequestsForCaretaker = () => {
                     <Table.Body>
                         {leaveRequests.map(request => (
                             <Table.Row key={request._id}>
+                            
                                 <Table.Cell>{request.student.username}</Table.Cell>
-                                <Table.Cell>{request.startDate}</Table.Cell>
-                                <Table.Cell>{request.endDate}</Table.Cell>
+                                <Table.Cell>{new Date(request.startDate).toLocaleDateString()}</Table.Cell>
+                                <Table.Cell>{new Date(request.startDate).toLocaleDateString()}</Table.Cell>
                                 <Table.Cell>{request.status}</Table.Cell>
                                 <Table.Cell>{request.caretakerRemark}</Table.Cell>
                                 <Table.Cell>

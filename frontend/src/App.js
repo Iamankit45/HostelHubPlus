@@ -29,6 +29,10 @@ import  CaretakerComplaints from './Components/Complaint/CaretakerComplaint'
 import StudentLeaveRequest from './Components/Leave/StudentLeaveRequest'
 import LeaveRequestsForCaretaker from './Components/Leave/CaretakerLeaveRequest'
 import StudentLeaveStatus from './Components/Leave/StudentLeaveStatus'
+import ViewFinesForCaretaker from './Components/Fine/ViewFInes';
+import StudentFines from './Components/Fine/StudentFine';
+import ImposeFine from './Components/Fine/ImposeFine';
+
 import './App.css';
 
 function App() {
@@ -65,6 +69,10 @@ function App() {
           <Route path ="/student/create-leave" element={ <RequireAuth><StudentLeaveRequest/></RequireAuth>}/>
           <Route path="/caretaker/leave" element={<RequireAuth><LeaveRequestsForCaretaker/></RequireAuth>}/>
           <Route path="/student/leave-status" element={ <RequireAuth><StudentLeaveStatus/></RequireAuth>}/>
+          <Route path="/student/fines" element={ <RequireAuth><StudentFines/></RequireAuth>}/>
+          <Route path="/caretaker/impose-fine" element={<RequireAuth><ImposeFine/></RequireAuth>}/>
+          <Route path="/caretaker/view-fines" element={<RequireAuth><ViewFinesForCaretaker/></RequireAuth>}/>
+
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

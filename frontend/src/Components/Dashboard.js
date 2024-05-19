@@ -90,17 +90,21 @@ const Dashboard = () => {
             { label: 'View Notice Board', to: '/notice' },
             {label:'Complaints',to :'/student/register-complaint'},
             {label:'Leave Status', to:'/student/leave-status'},
+            {label:'Fines',to:'/student/fines'},
             // Add more student-specific links here
         ];
     } else if (role === 'caretaker') {
         navigationLinks = [
             { label: 'Approve Leave', to: '/caretaker/leave' },
-            { label: 'Manage Inventory', to: '/manage-inventory' },
+            // { label: 'Manage Inventory', to: '/manage-inventory' },
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
             {label:'Student Attendance',to:`/student/mark-attendance`},
             {label:'Complaints',to:`/caretaker/complaints`},
+            {label:'Impose Fine', to:'/caretaker/impose-fine'},
+            {label:'View Fines',to:'/caretaker/view-fines'},
+
             // Add more caretaker-specific links here
         ];
     }
