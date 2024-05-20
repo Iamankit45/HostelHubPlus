@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { Form, Button, Message, Dropdown } from 'semantic-ui-react';
+import { Form, Button, Message, Dropdown, Icon, Container, Header } from 'semantic-ui-react';
 
 const categoryOptions = [
     { key: 'cleaning', value: 'Cleaning Supplies', text: 'Cleaning Supplies' },
@@ -46,9 +46,7 @@ const AddItemForm = () => {
         try {
             const response = await privateApi.post('/inventory/caretaker/add', { name, category, quantity, threshold, hostel });
             if (response.status === 201) {
-                console.log(response)
                 setMessage('Item added successfully');
-                
                 setName('');
                 setCategory('');
                 setQuantity('');
@@ -64,59 +62,69 @@ const AddItemForm = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Field>
-                <label>Item Name</label>
-                <input
-                    placeholder='Item Name'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </Form.Field>
-            <Form.Field>
-                <label>Category</label>
-                <Dropdown
-                    placeholder='Select Category'
-                    fluid
-                    selection
-                    options={categoryOptions}
-                    value={category}
-                    onChange={(e, { value }) => setCategory(value)}
-                />
-            </Form.Field>
-            <Form.Field>
-                <label>Quantity</label>
-                <input
-                    type='number'
-                    placeholder='Quantity'
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                />
-            </Form.Field>
-            <Form.Field>
-                <label>Threshold</label>
-                <input
-                    type='number'
-                    placeholder='Threshold'
-                    value={threshold}
-                    onChange={(e) => setThreshold(e.target.value)}
-                />
-            </Form.Field>
-            <Form.Field>
-                <label>Hostel</label>
-                <Dropdown
-                    placeholder='Select Hostel'
-                    fluid
-                    selection
-                    options={hostelOptions}
-                    value={hostel}
-                    onChange={(e, { value }) => setHostel(value)}
-                />
-            </Form.Field>
-            <Button type='submit'>Add Item</Button>
-            {message && <Message positive>{message}</Message>}
-            {error && <Message negative>{error}</Message>}
-        </Form>
+        <Container textAlign='center' style={{ padding: '2em 0'}}>
+            <Header as='h2' icon>
+                <Icon name='warehouse' />
+                Add Inventory Item
+                <Header.Subheader>Manage your hostel inventory efficiently</Header.Subheader>
+            </Header>
+            <Form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
+                <Form.Field>
+                    <label><Icon name='tag' /> Item Name</label>
+                    <input
+                        placeholder='Item Name'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label><Icon name='list' /> Category</label>
+                    <Dropdown
+                        placeholder='Select Category'
+                        fluid
+                        selection
+                        options={categoryOptions}
+                        value={category}
+                        onChange={(e, { value }) => setCategory(value)}
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label><Icon name='numbered list' /> Quantity</label>
+                    <input
+                        type='number'
+                        placeholder='Quantity'
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label><Icon name='warning sign' /> Threshold</label>
+                    <input
+                        type='number'
+                        placeholder='Threshold'
+                        value={threshold}
+                        onChange={(e) => setThreshold(e.target.value)}
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label><Icon name='building' /> Hostel</label>
+                    <Dropdown
+                        placeholder='Select Hostel'
+                        fluid
+                        selection
+                        options={hostelOptions}
+                        value={hostel}
+                        onChange={(e, { value }) => setHostel(value)}
+                    />
+                </Form.Field>
+                <Button primary type='submit' icon labelPosition='right'>
+                    Add Item
+                    <Icon name='right arrow' />
+                </Button>
+                {message && <Message positive>{message}</Message>}
+                {error && <Message negative>{error}</Message>}
+            </Form>
+        </Container>
     );
 };
 

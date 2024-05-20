@@ -5,6 +5,7 @@ const Caretaker = require('../../models/caretaker/caretaker.js');
 const Warden = require('../../models/warden/warden.js');
 const Notification = require('../../models/notification/notification.js');
 const User = require('../../models/user/user');
+const Hostel = require('../../models/Hostel/hostel.js');
 
 // Function to add a new inventory item
 exports.addItem = async (req, res) => {
@@ -49,6 +50,7 @@ exports.updateItem = async (req, res) => {
         const { name, category, quantity, hostel } = req.body;
         const itemId = req.params.itemId;
         
+        // console.log(req.body);
         const item = await Inventory.find({_id: itemId});
         const threshold=item.threshold;
         
@@ -59,14 +61,19 @@ exports.updateItem = async (req, res) => {
             { new: true }
         );
 
+        
+        const Hname=await Hostel.findOne({_id:hostel});
+        
+        const hname=Hname.name
         // Check if quantity is below threshold
         if (updatedItem.quantity < updatedItem.threshold) {
-            const warden = await Warden.find({hostel: updatedItem.hostel }); // Assuming there is a user role 'warden' and they are associated with a hostel
+            const warden = await Warden.findOne({hostel: updatedItem.hostel }); // Assuming there is a user role 'warden' and they are associated with a hostel
+            
             if (warden) {
                 const notification = new Notification({
                     sender: req.user.userId,
                     recipient: warden._id,
-                    message: `Inventory for ${updatedItem.name} has fallen below the threshold in hostel ${updatedItem.hostel}`,
+                    message: `Inventory for ${updatedItem.name} has fallen below the threshold in hostel ${hname}`,
                 });
                 await notification.save();
             }

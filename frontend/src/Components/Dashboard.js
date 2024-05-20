@@ -18,6 +18,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [showHostelSelect, setShowHostelSelect] = useState(false);
     const [selectedHostel, setSelectedHostel] = useState('');
+    const [menuVisible, setMenuVisible] = useState(false);
 
     useEffect(() => {
         // Fetch the list of hostels from the API
@@ -88,24 +89,37 @@ const Dashboard = () => {
             { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Apply for Leave', to: '/student/create-leave' },
             { label: 'View Notice Board', to: '/notice' },
-            {label:'Complaints',to :'/student/register-complaint'},
-            {label:'Leave Status', to:'/student/leave-status'},
-            {label:'Fines',to:'/student/fines'},
+            { label: 'Complaints', to: '/student/register-complaint' },
+            { label: 'Leave Status', to: '/student/leave-status' },
+            { label: 'Fines', to: '/student/fines' },
             // Add more student-specific links here
         ];
     } else if (role === 'caretaker') {
         navigationLinks = [
-            
+
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Manage Leave', to: '/caretaker/leave' },
             // { label: 'Manage Inventory', to: '/manage-inventory' },
             { label: 'Manage Notice Board', to: '/notice' },
-            
+
             { label: 'Student Details', to: `/${hostelId}/student-info` },
-            {label:'Student Attendance',to:`/student/mark-attendance`},
-            {label:'Complaints',to:`/caretaker/complaints`},
-            {label:'Impose Fine', to:'/caretaker/impose-fine'},
-            {label:'View Fines',to:'/caretaker/view-fines'},
+            { label: 'Student Attendance', to: `/student/mark-attendance` },
+            { label: 'Complaints', to: `/caretaker/complaints` },
+
+            {
+                label: 'Manage Fines',
+                dropdown: [
+                    { label: 'Impose', to: '/caretaker/impose-fine' },
+                    { label: 'View', to: '/caretaker/view-fines' },
+                ]
+            },
+            {
+                label: 'Manage Inventory',
+                dropdown: [
+                    { label: 'Add', to: '/addInventory/' },
+                    { label: 'View', to: '/inventory/' },
+                ]
+            },
 
             // Add more caretaker-specific links here
         ];
@@ -115,9 +129,9 @@ const Dashboard = () => {
             { label: 'Approve Leave', to: '/approve-leave' },
             { label: 'Manage Inventory', to: '/manage-inventory' },
             { label: 'Manage Notice Board', to: '/notice' },
-            { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
+            { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
-            {label:'Student Attendance',to:`/student/mark-attendance`},
+            
 
         ];
     }
@@ -148,7 +162,17 @@ const Dashboard = () => {
                     <Menu vertical fluid>
                         {navigationLinks.map((link, index) => (
                             <React.Fragment key={index}>
-                                {link.to ? (
+                                {link.dropdown ? (
+                                    <Dropdown item text={link.label}>
+                                        <Dropdown.Menu >
+                                            {link.dropdown.map((sublink, subIndex) => (
+                                                <Dropdown.Item key={subIndex} as={Link} to={sublink.to}>
+                                                    {sublink.label}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                ) : link.to ? (
                                     <Menu.Item as={Link} to={link.to}>{link.label}</Menu.Item>
                                 ) : (
                                     <Menu.Item as="a" onClick={link.onClick}>{link.label}</Menu.Item>
@@ -175,7 +199,7 @@ const Dashboard = () => {
                     {role === 'student' && (
                         <StudentDashboard />
                     )}
-                    
+
                 </div>
                 <div className="five wide column centered">
                     <h2>Notifications</h2>

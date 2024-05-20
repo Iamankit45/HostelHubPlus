@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { Table, Button, Message } from 'semantic-ui-react';
+import { Table, Button, Message, Header, Dropdown, Icon, Grid } from 'semantic-ui-react';
 import EditItemForm from './EditItemForm';
+import './inventory.css'; // Import CSS file for custom styling
 
 const InventoryList = () => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState('');
     const [editItem, setEditItem] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
     const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
@@ -41,32 +43,72 @@ const InventoryList = () => {
         setEditItem(null);
     };
 
+    const handleCategoryChange = (e, { value }) => {
+        setSelectedCategory(value);
+    };
+
+    // Filter items based on selected category
+    const filteredItems = selectedCategory ? items.filter(item => item.category === selectedCategory) : items;
+
+    // Helper function to get category options
+    const getCategoryOptions = () => {
+        // Assuming categories are extracted from existing items
+        const categories = [...new Set(items.map(item => item.category))];
+        return categories.map(category => ({
+            key: category,
+            value: category,
+            text: category,
+        }));
+    };
+
     return (
-        <div>
+        <div className="inventory-list-container">
             {message && <Message>{message}</Message>}
-            <Table celled>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Category</Table.HeaderCell>
-                        <Table.HeaderCell>Quantity</Table.HeaderCell>
-                        <Table.HeaderCell>Actions</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {items.map(item => (
-                        <Table.Row key={item._id}>
-                            <Table.Cell>{item.name}</Table.Cell>
-                            <Table.Cell>{item.category}</Table.Cell>
-                            <Table.Cell>{item.quantity}</Table.Cell>
-                            <Table.Cell>
-                                <Button onClick={() => handleEdit(item)}>Edit</Button>
-                                <Button onClick={() => handleDelete(item._id)} negative>Delete</Button>
-                            </Table.Cell>
+            <Grid stackable>
+                <Grid.Row columns={2}>
+                    
+                        <Dropdown
+                            placeholder='Select Category'
+                            fluid
+                            selection
+                            options={getCategoryOptions()}
+                            onChange={handleCategoryChange}
+                            value={selectedCategory}
+                        />
+                    
+                    
+                </Grid.Row>
+            </Grid>
+            <div className="inventory-list">
+                <Table celled selectable>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell>Category</Table.HeaderCell>
+                            <Table.HeaderCell>Quantity</Table.HeaderCell>
+                            <Table.HeaderCell>Threshold</Table.HeaderCell>
+                            <Table.HeaderCell>Actions</Table.HeaderCell>
                         </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table>
+                    </Table.Header>
+                    <Table.Body>
+                        {filteredItems.map(item => (
+                            <Table.Row
+                                key={item._id}
+                                className={item.quantity < item.threshold ? 'red-mark' : ''}
+                            >
+                                <Table.Cell>{item.name}</Table.Cell>
+                                <Table.Cell>{item.category}</Table.Cell>
+                                <Table.Cell>{item.quantity}</Table.Cell>
+                                <Table.Cell>{item.threshold}</Table.Cell>
+                                <Table.Cell>
+                                    <Button onClick={() => handleEdit(item)}>Edit</Button>
+                                    <Button onClick={() => handleDelete(item._id)} negative>Delete</Button>
+                                </Table.Cell>
+                            </Table.Row>
+                        ))}
+                    </Table.Body>
+                </Table>
+            </div>
             {editItem && (
                 <EditItemForm item={editItem} onUpdate={handleUpdate} onCancel={() => setEditItem(null)} />
             )}

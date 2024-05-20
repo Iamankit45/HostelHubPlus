@@ -1,0 +1,42 @@
+.red-mark td:nth-child(3) {
+    color: red;
+    font-weight: bold;
+    background-color:rgb(244, 235, 152);
+}
+/* .red-mark {
+    color: red;
+}
+
+.red-text {
+    color: red;
+    font-weight: bold;
+} */
+
+
+.inventory-list-container {
+    margin-top: 40px;
+    
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+.inventory-list {
+    width: 90%; /* Adjust width as needed */
+}
+
+.category-section {
+    margin-bottom: 20px;
+}
+
+.red-mark {
+    color: red;
+}
+
+.inventory-list
+{
+    margin-top: 20px;
+    max-height: 500px; 
+    overflow-y: auto;
+}

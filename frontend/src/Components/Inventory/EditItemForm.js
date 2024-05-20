@@ -19,10 +19,12 @@ const EditItemForm = ({ item, onUpdate, onCancel }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const hostelId=localStorage.getItem('hostelId');
         try {
-            const response = await axiosPrivate.patch(`/inventory/${item._id}`, { name, category, quantity });
+            const response = await axiosPrivate.patch(`/inventory/${item._id}`, { name, category, quantity,hostel:hostelId });
             onUpdate(response.data);
             setMessage('Item updated successfully');
+            window.location.reload();
         } catch (error) {
             setMessage('Error updating item');
         }
@@ -39,6 +41,7 @@ const EditItemForm = ({ item, onUpdate, onCancel }) => {
                             placeholder='Item Name'
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            disabled
                         />
                     </Form.Field>
                     <Form.Field>
@@ -50,6 +53,7 @@ const EditItemForm = ({ item, onUpdate, onCancel }) => {
                             options={categoryOptions}
                             value={category}
                             onChange={(e, { value }) => setCategory(value)}
+                            disabled
                         />
                     </Form.Field>
                     <Form.Field>
