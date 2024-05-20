@@ -10,6 +10,7 @@ const InventoryList = () => {
     const [editItem, setEditItem] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const axiosPrivate = useAxiosPrivate();
+    const role = localStorage.getItem('role');
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -87,7 +88,7 @@ const InventoryList = () => {
                             <Table.HeaderCell>Category</Table.HeaderCell>
                             <Table.HeaderCell>Quantity</Table.HeaderCell>
                             <Table.HeaderCell>Threshold</Table.HeaderCell>
-                            <Table.HeaderCell>Actions</Table.HeaderCell>
+                            {role === 'caretaker' && (  <Table.HeaderCell>Actions</Table.HeaderCell>)}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -100,10 +101,14 @@ const InventoryList = () => {
                                 <Table.Cell>{item.category}</Table.Cell>
                                 <Table.Cell>{item.quantity}</Table.Cell>
                                 <Table.Cell>{item.threshold}</Table.Cell>
-                                <Table.Cell>
-                                    <Button onClick={() => handleEdit(item)}>Edit</Button>
-                                    <Button onClick={() => handleDelete(item._id)} negative>Delete</Button>
-                                </Table.Cell>
+                                {role === 'caretaker' && ( <Table.Cell>
+                                   
+                                        <>
+                                            <Button onClick={() => handleEdit(item)}>Edit</Button>
+                                            <Button onClick={() => handleDelete(item._id)} negative>Delete</Button>
+                                        </>
+                                    
+                                </Table.Cell>)}
                             </Table.Row>
                         ))}
                     </Table.Body>

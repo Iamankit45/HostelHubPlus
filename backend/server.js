@@ -32,7 +32,7 @@ const notificationRouter = require("./routes/notification")
 const complaintRouter=require("./routes/complaint/complaintRoutes");
 const fineRouter =require("./routes/fine/fineRoutes");
 const inventoryRouter = require("./routes/inventory/inventoryRoutes");
-
+const staffRouter=require("./routes/staff/staffRoutes");
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/",authRouter);
@@ -46,6 +46,7 @@ app.use("/api/v1/notifications/",notificationRouter);
 app.use("/api/v1/complaint",complaintRouter);
 app.use("/api/v1/fine",fineRouter);
 app.use("/api/v1/inventory",inventoryRouter)
+app.use("/api/v1/staff",staffRouter)
 
 // Define routes
 app.get('/', (req, res) => {

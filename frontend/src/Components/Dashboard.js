@@ -120,18 +120,29 @@ const Dashboard = () => {
                     { label: 'View', to: '/inventory/' },
                 ]
             },
+            {
+                label: 'Manage Staff',
+                dropdown: [
+                    { label: 'New staff', to: '/add-staff/' },
+                    { label: 'Schedule', to: '/staff-schedule' },
+                ]
+
+            }
+
 
             // Add more caretaker-specific links here
         ];
     }
     else if (role === 'warden') {
         navigationLinks = [
-            { label: 'Approve Leave', to: '/approve-leave' },
-            { label: 'Manage Inventory', to: '/manage-inventory' },
-            { label: 'Manage Notice Board', to: '/notice' },
-            { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'Student Details', to: `/${hostelId}/student-info` },
-            
+            { label: 'Student Leave', to: '/caretaker/leave' },
+            { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
+            { label: 'View Inventory', to: '/inventory/' },
+            { label: 'Manage Notice Board', to: '/notice' },
+
+
+
 
         ];
     }
@@ -142,9 +153,10 @@ const Dashboard = () => {
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'Hostel Details', to: '/admin/view-hostels' },
             { label: 'Hostel Allotment', to: '/admin/hostel-allotment' },
+            { label: 'Add Hostel', to: '/admin/add-hostel' },
             { label: 'Manage Caretaker', to: '/hostel/assign-caretaker' },
             { label: 'Manage Warden', to: '/hostel/assign-warden' },
-            { label: 'Add Hostel', to: '/admin/add-hostel' },
+
             { label: 'Student Details', onClick: handleStudentDetailsClick },
 
             // Add more caretaker-specific links here

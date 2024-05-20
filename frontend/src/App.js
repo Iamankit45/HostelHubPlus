@@ -35,6 +35,8 @@ import ImposeFine from './Components/Fine/ImposeFine';
 import AddItemForm from './Components/Inventory/AddInventory';
 import EditItemForm from './Components/Inventory/EditItemForm';
 import InventoryList from './Components/Inventory/InventoryList';
+import StaffForm from './Components/Staff/StaffForm';
+import StaffScheduleForm from './Components/Staff/StaffSchedule';
 
 import './App.css';
 
@@ -79,6 +81,11 @@ function App() {
           <Route path="/addInventory/"element={<RequireAuth><AddItemForm/></RequireAuth>}/>
           <Route path="/edit-Inventory/"element={<RequireAuth><EditItemForm/></RequireAuth>}/>
           <Route path="/inventory/"element={<RequireAuth><InventoryList/></RequireAuth>}/>
+          
+          
+          <Route path="/add-staff/" element={<RequireAuth><StaffForm/></RequireAuth>}/>
+          <Route path="/staff-schedule/" element={<RequireAuth><StaffScheduleForm/></RequireAuth>}/>
+          
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>

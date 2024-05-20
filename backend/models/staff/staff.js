@@ -1,26 +1,31 @@
-// models/staff/staff.js
+// staff.model.js
 
 const mongoose = require('mongoose');
 
-// Define Staff Schema
-const staffSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  fullName: {
-    type: String
-  },
-  address: {
-    type: String
-  },
-  staffType: {
-    type: String
-  }
+const StaffSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        
+    },
+    username:{
+        type:String,
+        required:true,
+        unique:true,
+    },
+    position: {
+        type: String,
+        enum: ['Cleaner', 'Maintenance Worker', 'Security Guard', 'Front Desk Staff', 'Other'],
+        default: 'Other' // Set a default value if needed
+    },
+    contact: String,
+    hostel: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hostel'
+    }
+    
 });
 
-// Create Staff model
-const Staff = mongoose.model('Staff', staffSchema);
+const Staff = mongoose.model('Staff', StaffSchema);
 
 module.exports = Staff;

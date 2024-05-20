@@ -41,7 +41,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/notifications">
+                            <Link className="nav-link">
                                 <i className="bi bi-bell-fill"></i>
                             </Link>
                         </li>

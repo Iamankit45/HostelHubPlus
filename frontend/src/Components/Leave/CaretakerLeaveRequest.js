@@ -10,6 +10,7 @@ const LeaveRequestsForCaretaker = () => {
     const [caretakerRemark, setCaretakerRemark] = useState('');
     const [openModal, setOpenModal] = useState(false);
 
+    const role = localStorage.getItem('role');
     useEffect(() => {
         const fetchLeaveRequests = async () => {
             const hostelId = localStorage.getItem('hostelId');
@@ -82,7 +83,7 @@ const LeaveRequestsForCaretaker = () => {
                             <Table.HeaderCell>End Date</Table.HeaderCell>
                             <Table.HeaderCell>Status</Table.HeaderCell>
                             <Table.HeaderCell>Remark</Table.HeaderCell>
-                            <Table.HeaderCell>Actions</Table.HeaderCell>
+                            {role === 'caretaker' && ( <Table.HeaderCell>Actions</Table.HeaderCell>)}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -94,7 +95,9 @@ const LeaveRequestsForCaretaker = () => {
                                 <Table.Cell>{new Date(request.startDate).toLocaleDateString()}</Table.Cell>
                                 <Table.Cell>{request.status}</Table.Cell>
                                 <Table.Cell>{request.caretakerRemark}</Table.Cell>
-                                <Table.Cell>
+                                {role === 'caretaker' &&(  <Table.Cell>
+                                
+                                    <>
                                     {request.status === 'pending' && (
                                         <>
                                             <ButtonGroup>
@@ -103,8 +106,8 @@ const LeaveRequestsForCaretaker = () => {
                                             <Button  compact size='mini' onClick={() => openRejectModal(request._id)} negative>Reject</Button>
                                             </ButtonGroup>
                                         </>
-                                    )}
-                                </Table.Cell>
+                                    )}</>
+                                </Table.Cell>)}
                             </Table.Row>
                         ))}
                     </Table.Body>
