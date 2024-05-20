@@ -11,6 +11,7 @@ const CaretakerComplaints = () => {
     const [open, setOpen] = useState(false);
     const [selectedComplaint, setSelectedComplaint] = useState(null);
     const [remark, setRemark] = useState('');
+    const role=localStorage.getItem('role');
 
     useEffect(() => {
         const hostelId = localStorage.getItem('hostelId');
@@ -68,7 +69,7 @@ const CaretakerComplaints = () => {
                             <Table.HeaderCell>Complaint</Table.HeaderCell>
                             <Table.HeaderCell>Status</Table.HeaderCell>
                             <Table.HeaderCell>Remark</Table.HeaderCell>
-                            <Table.HeaderCell>Actions</Table.HeaderCell>
+                            {role === 'caretaker' && (   <Table.HeaderCell>Actions</Table.HeaderCell>)}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -78,11 +79,11 @@ const CaretakerComplaints = () => {
                                 <Table.Cell>{complaint.complaint}</Table.Cell>
                                 <Table.Cell>{complaint.status}</Table.Cell>
                                 <Table.Cell>{complaint.remark}</Table.Cell>
-                                <Table.Cell>
+                                {role === 'caretaker' && (    <Table.Cell>
                                     {complaint.status === 'pending' && (
                                         <Button onClick={() => handleOpen(complaint)} primary>Resolve</Button>
                                     )}
-                                </Table.Cell>
+                                </Table.Cell>)}
                             </Table.Row>
                         ))}
                     </Table.Body>

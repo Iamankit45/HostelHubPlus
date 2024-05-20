@@ -10,7 +10,7 @@ const HomePage = () => {
           <img src={hostel} className="img-fluid mb-4" alt="Hostel Management" />
           <h1>Welcome to HostelHubPlus</h1>
           <p className="lead">Your all-in-one solution for efficient hostel management.</p>
-          <Link to="/signup" className="btn btn-primary">Get Started</Link>
+          <Link to="/dashboard" className="btn btn-primary">Get Started</Link>
         </div>
       </section>
 

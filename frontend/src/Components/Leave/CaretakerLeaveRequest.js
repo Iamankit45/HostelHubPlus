@@ -83,7 +83,7 @@ const LeaveRequestsForCaretaker = () => {
                             <Table.HeaderCell>End Date</Table.HeaderCell>
                             <Table.HeaderCell>Status</Table.HeaderCell>
                             <Table.HeaderCell>Remark</Table.HeaderCell>
-                            {role === 'caretaker' && ( <Table.HeaderCell>Actions</Table.HeaderCell>)}
+                            {role === 'warden' && ( <Table.HeaderCell>Actions</Table.HeaderCell>)}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -95,7 +95,7 @@ const LeaveRequestsForCaretaker = () => {
                                 <Table.Cell>{new Date(request.startDate).toLocaleDateString()}</Table.Cell>
                                 <Table.Cell>{request.status}</Table.Cell>
                                 <Table.Cell>{request.caretakerRemark}</Table.Cell>
-                                {role === 'caretaker' &&(  <Table.Cell>
+                                {role === 'warden' &&(  <Table.Cell>
                                 
                                     <>
                                     {request.status === 'pending' && (

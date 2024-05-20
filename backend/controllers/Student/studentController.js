@@ -4,6 +4,7 @@ const LeaveRequest = require('../../models/student/leave.js')
 const Caretaker = require('../../models/caretaker/caretaker.js');
 const Notification = require('../../models/notification/notification.js');
 const User = require('../../models/user/user');
+const Warden = require('../../models/warden/warden.js');
 
 exports.getStudentDetails = async (req, res) => {
     try {
@@ -139,13 +140,13 @@ exports.createLeaveRequest = async (req, res) => {
         });
 
         // Create notification for the caretaker
-        const caretaker = await Caretaker.findOne({ hostel: hostel });
+        const warden = await Warden.findOne({ hostel: hostel });
 
 
-        if (caretaker) {
+        if (warden) {
             const notification = new Notification({
                 sender: req.user.userId,
-                recipient: caretaker._id,
+                recipient: warden._id,
                 message: ` ${student.username} has requested for leave`
             });
             await notification.save();
@@ -179,7 +180,7 @@ exports.getLeaveRequestsForCaretaker = async (req, res) => {
     try {
         const hostelId = req.params.hostelId;
         // console.log(hostelId);
-        const leaveRequests = await LeaveRequest.find({ hostel: hostelId }).populate('student');
+        const leaveRequests = await LeaveRequest.find({ hostel: hostelId }).populate('student').sort({ createdAt: -1 });;
         res.status(200).json(leaveRequests);
     } catch (error) {
         console.error('Error fetching leave requests for caretaker:', error);

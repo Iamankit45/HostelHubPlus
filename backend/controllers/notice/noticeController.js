@@ -4,7 +4,7 @@ const User = require('../../models/user/user');
 // Get all notices
 const getAllNotices = async (req, res) => {
     try {
-        const notices = await Notice.find();
+        const notices = await Notice.find().sort({ createdAt: -1 });
         res.json(notices);
     } catch (error) {
         res.status(500).json({ message: error.message });

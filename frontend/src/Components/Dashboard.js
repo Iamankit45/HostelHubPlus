@@ -87,9 +87,10 @@ const Dashboard = () => {
     if (role === 'student') {
         navigationLinks = [
             { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
-            { label: 'Apply for Leave', to: '/student/create-leave' },
+            
             { label: 'View Notice Board', to: '/notice' },
             { label: 'Complaints', to: '/student/register-complaint' },
+            { label: 'Apply for Leave', to: '/student/create-leave' },
             { label: 'Leave Status', to: '/student/leave-status' },
             { label: 'Fines', to: '/student/fines' },
             // Add more student-specific links here
@@ -98,7 +99,7 @@ const Dashboard = () => {
         navigationLinks = [
 
             { label: 'Manage Rooms', to: `/view-hostels/${hostelId}` },
-            { label: 'Manage Leave', to: '/caretaker/leave' },
+            { label: 'Student Leave', to: '/caretaker/leave' },
             // { label: 'Manage Inventory', to: '/manage-inventory' },
             { label: 'Manage Notice Board', to: '/notice' },
 
@@ -136,10 +137,11 @@ const Dashboard = () => {
     else if (role === 'warden') {
         navigationLinks = [
             { label: 'Student Details', to: `/${hostelId}/student-info` },
-            { label: 'Student Leave', to: '/caretaker/leave' },
+            { label: 'Manage Leave', to: '/caretaker/leave' },
             { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
             { label: 'View Inventory', to: '/inventory/' },
             { label: 'Manage Notice Board', to: '/notice' },
+            { label: 'View Complaints', to: `/caretaker/complaints` },
 
 
 
