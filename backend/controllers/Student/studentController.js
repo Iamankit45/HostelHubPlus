@@ -5,6 +5,7 @@ const Caretaker = require('../../models/caretaker/caretaker.js');
 const Notification = require('../../models/notification/notification.js');
 const User = require('../../models/user/user');
 const Warden = require('../../models/warden/warden.js');
+const bcrypt = require('bcrypt');
 
 exports.getStudentDetails = async (req, res) => {
     try {
@@ -229,3 +230,57 @@ exports.rejectLeaveRequest = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
+// Register a new student
+exports.registerStudent = async (req, res) => {
+    const session = await User.startSession();
+    session.startTransaction();
+    try {
+        const { username, password, studentInfo } = req.body;
+
+        // console.log(req.body);
+
+        // Validate username uniqueness
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            throw new Error('Username already exists');
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create user
+        const newUser = new User({ username, password: hashedPassword, role: 'student' });
+        await newUser.save({ session });
+
+        // Create student with reference to the new user's _id
+        const student = new Student({ _id: newUser._id, username, ...studentInfo });
+        await student.save({ session });
+
+        await session.commitTransaction();
+        session.endSession();
+
+
+
+        res.status(201).json({ message: 'Student registered successfully', student: student, user: newUser });
+    } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        res.status(400).json({ message: error.message });
+    }
+};
+
+
+exports.getAllStudent = async (req, res) => 
+{
+    try {
+       const students= await Student.find();
+
+       res.status(200).json({student: students})
+        
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+
+}

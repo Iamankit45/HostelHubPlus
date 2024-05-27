@@ -87,7 +87,7 @@ const Dashboard = () => {
     if (role === 'student') {
         navigationLinks = [
             { label: 'View Rooms', to: `/view-hostels/${hostelId}` },
-            
+
             { label: 'View Notice Board', to: '/notice' },
             { label: 'Complaints', to: '/student/register-complaint' },
             { label: 'Apply for Leave', to: '/student/create-leave' },
@@ -142,7 +142,7 @@ const Dashboard = () => {
             { label: 'View Inventory', to: '/inventory/' },
             { label: 'Manage Notice Board', to: '/notice' },
             { label: 'View Complaints', to: `/caretaker/complaints` },
-
+            { label: 'View fines', to: '/caretaker/view-fines' },
 
 
 
@@ -160,6 +160,7 @@ const Dashboard = () => {
             { label: 'Manage Warden', to: '/hostel/assign-warden' },
 
             { label: 'Student Details', onClick: handleStudentDetailsClick },
+            {label:'Register Student' ,to: '/register-student'},
 
             // Add more caretaker-specific links here
         ];
