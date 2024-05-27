@@ -37,6 +37,7 @@ import EditItemForm from './Components/Inventory/EditItemForm';
 import InventoryList from './Components/Inventory/InventoryList';
 import StaffForm from './Components/Staff/StaffForm';
 import StaffScheduleForm from './Components/Staff/StaffSchedule';
+import RegisterStudent from './Components/Student/RegisterStudent'
 
 import './App.css';
 
@@ -85,7 +86,7 @@ function App() {
           
           <Route path="/add-staff/" element={<RequireAuth><StaffForm/></RequireAuth>}/>
           <Route path="/staff-schedule/" element={<RequireAuth><StaffScheduleForm/></RequireAuth>}/>
-          
+          <Route path="/register-student/" element={<RequireAuth><RequireAdmin><RegisterStudent/></RequireAdmin></RequireAuth>}/>
           <Route path="/" element={<HomePage />} />
         </Routes>
         </NoticeProvider>
