@@ -28,7 +28,7 @@ const HomePage = () => {
           <div className="card h-100 border border-primary rounded shadow">
             <div className="card-body">
               <h3 className="card-title text-primary">Students</h3>
-              <p className="card-text">View alloted room, register complaints,apply for leave, view notices, and more.</p>
+              <p className="card-text">View available rooms, Alotted rooms,request for room change, register complaints,apply for leave, view notices,track attendance and more.</p>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@ const HomePage = () => {
           <div className="card h-100 border border-primary rounded shadow">
             <div className="card-body">
               <h3 className="card-title text-primary">Caretakers</h3>
-              <p className="card-text">Manage Rooms,manage student,Approve leave requests, manage inventory, and oversee daily operations.</p>
+              <p className="card-text">Manage Rooms,Manage student,Resolve student complaints, Manage inventory, and oversee staff schedules, and fines.</p>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@ const HomePage = () => {
           <div className="card h-100 border border-primary rounded shadow">
             <div className="card-body">
               <h3 className="card-title text-primary">Wardens</h3>
-              <p className="card-text">Supervise students, manage facilities, and ensure safety and security.</p>
+              <p className="card-text">Oversee leave ,View rooms and Complaints, access student info, create/edit notices, and monitor inventory and fines</p>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ const HomePage = () => {
           <div className="card h-100 border border-primary rounded shadow">
             <div className="card-body">
               <h3 className="card-title text-primary">Super Admins</h3>
-              <p className="card-text">Administrate hostels,add hostels, assign roles, and oversee system management.</p>
+              <p className="card-text">Administrate hostels,Introduce and define hostel structure,allocate students,assign caretakers and wardens and oversee system management.</p>
             </div>
           </div>
         </div>
