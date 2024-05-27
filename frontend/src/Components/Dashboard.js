@@ -93,6 +93,7 @@ const Dashboard = () => {
             { label: 'Apply for Leave', to: '/student/create-leave' },
             { label: 'Leave Status', to: '/student/leave-status' },
             { label: 'Fines', to: '/student/fines' },
+            {label:'Request for Room Change' ,to :'/request-room-change/'}
             // Add more student-specific links here
         ];
     } else if (role === 'caretaker') {

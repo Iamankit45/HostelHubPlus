@@ -284,3 +284,40 @@ exports.getAllStudent = async (req, res) =>
     }
 
 }
+
+
+exports.requestRoomChange = async (req, res) => {
+    try {
+      const { message,hostelId } = req.body;
+      const studentId = req.user.userId;
+  
+      // Fetch the student's details
+      const student = await Student.findById({ _id: studentId });
+      const hostel = student.hostel;
+     
+  
+      if (!student) {
+        return res.status(404).json({ message: 'Student not found' });
+      }
+  
+      // Fetch the caretaker for the student's hostel
+      const caretaker = await Caretaker.findOne({ hostel: hostel });
+  
+      if (!caretaker) {
+        return res.status(404).json({ message: 'Caretaker not found' });
+      }
+  
+      // Create and save the notification
+      const notification = new Notification({
+        sender: studentId,
+        recipient: caretaker._id,
+        message: `${student.username} has requested for room change: ${message}`
+      });
+  
+      await notification.save();
+  
+      res.status(201).json({ message: 'Room change request sent successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };

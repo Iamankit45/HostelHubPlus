@@ -2,13 +2,14 @@ const express = require('express');
 const studentRouter = express.Router();
 const authMiddleware = require('../.././middlewares/authMiddleware');
 
-const {getStudentDetails,updateAttendance,getAttendance,getAttendanceByDateAndHostel,createLeaveRequest,getLeaveRequestsForStudent,getLeaveRequestsForCaretaker,approveLeaveRequest,rejectLeaveRequest,registerStudent,getAllStudent} = require('../../controllers/Student/studentController');
+const {getStudentDetails,updateAttendance,getAttendance,getAttendanceByDateAndHostel,createLeaveRequest,getLeaveRequestsForStudent,getLeaveRequestsForCaretaker,approveLeaveRequest,rejectLeaveRequest,registerStudent,getAllStudent,requestRoomChange } = require('../../controllers/Student/studentController');
 
 
 
 
 studentRouter.get('/',getStudentDetails);
 studentRouter.get('/allStudentDetails',getAllStudent);
+studentRouter.post('/request-room-change',authMiddleware,requestRoomChange);
 
 studentRouter.post('/updateAttendance/:hostelId/:date',authMiddleware,updateAttendance);
 studentRouter.get('/attendance/:hostelId/:date',authMiddleware,getAttendanceByDateAndHostel);
