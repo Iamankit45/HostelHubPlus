@@ -3,8 +3,10 @@ const bcrypt = require('bcrypt');
 const User = require('././models/user/user.js'); // Adjust the path as needed
 const Student = require('././models/student/student.js');
 const fs = require('fs');
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/config.env" });
 
-mongoose.connect('mongodb+srv://kumarankit0327:ankit0327@hostel-management.mdrp7f7.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function insertData() {
   try {
