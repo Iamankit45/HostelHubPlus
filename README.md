@@ -5,15 +5,12 @@ HostelHubbPlus is a MERN stack project meticulously crafted to optimize hostel o
 
 Designed for four key actors—Students, Caretakers, Wardens, and Hostel Admins—each plays a crucial role in ensuring the system's efficient operation. 
 
-[Use Case Diagram](https://photos.google.com/photo/AF1QipNxQJvD2WebnDZI2GydgNkdL0CM8rGvEpwLk4qv)    
+
+[Use Case Diagram](https://photos.google.com/photo/AF1QipNxQJvD2WebnDZI2GydgNkdL0CM8rGvEpwLk4qv)  
 
 [API documentation](https://docs.google.com/document/d/1KLBBAmtQ7TK-4vsfdeZGaIzZ-wtJS1CGRHJiGlzJrYc/edit?usp=sharing)
 
 [Database Schema](https://docs.google.com/document/d/1EhtUotJ_cZJKlgkPXjlb1y4eUhmX34KkrxGFvG6X4u8/edit?usp=sharing)
-
-
-
-
 
 ## Features
 
@@ -109,23 +106,57 @@ For inserting dummy data of student I have kept the students_data.json file you 
 ```bash
   node insert_data.js
 ```
-## Screenshots
+## Live Demo
+Check out the live demo of the application [here](https://hostel-hub-plus.vercel.app/).
 
+
+### Login Credentials
+
+To log in as a student, use the following credentials:
+- **Username**: `dummy_Student`
+- **Password**: `dummy`
+
+
+Please note that login credentials for other roles (caretaker, warden, hostel admin) are not provided. You can create these users by own for your database.
+Screenshots for respective users are provided for reference
+
+
+
+## Screenshots
+Some screenshots are provided for reference
+
+#### Home Page
+
+[![Screenshot-2024-06-12-at-12-43-13-AM.png](https://i.postimg.cc/kM1sPQ9F/Screenshot-2024-06-12-at-12-43-13-AM.png)](https://postimg.cc/MXBVyjnv)
+
+#### Manual Room Allocation
 [![Screenshot-2024-05-21-at-1-27-16-AM.png](https://i.postimg.cc/Y0tsBVY9/Screenshot-2024-05-21-at-1-27-16-AM.png)](https://postimg.cc/jwkXzM80)
 
 
-
+#### Student Dashboard
 
 [![Screenshot-2024-05-21-at-1-49-50-AM.png](https://i.postimg.cc/rscwX8fr/Screenshot-2024-05-21-at-1-49-50-AM.png)](https://postimg.cc/dkHYGKPs)
 
-
+#### Hostel Allotment (only access to Hostel Admin)
 
 [![Screenshot-2024-05-21-at-1-40-00-AM.png](https://i.postimg.cc/BnwbLfnr/Screenshot-2024-05-21-at-1-40-00-AM.png)](https://postimg.cc/qNy4SYnw)
 
+#### Specific Hostel Details
+
 [![Screenshot-2024-05-21-at-1-40-39-AM.png](https://i.postimg.cc/FKMKpbcG/Screenshot-2024-05-21-at-1-40-39-AM.png)](https://postimg.cc/CZ4YLqcf)
 
+#### Marking Attendance
 [![Screenshot-2024-05-21-at-1-34-14-AM.png](https://i.postimg.cc/dtwLg9fx/Screenshot-2024-05-21-at-1-34-14-AM.png)](https://postimg.cc/0rXkw7PY)
 
+#### Manage Staff schedule
 [![Screenshot-2024-05-21-at-1-55-18-AM.png](https://i.postimg.cc/prZXPgS1/Screenshot-2024-05-21-at-1-55-18-AM.png)](https://postimg.cc/1V8ZHYsp)
 
+#### Assign caretaker
 [![Screenshot-2024-05-21-at-1-50-34-AM.png](https://i.postimg.cc/g0XJ3twn/Screenshot-2024-05-21-at-1-50-34-AM.png)](https://postimg.cc/zLN8rjFr)
+
+#### Hostel Admin
+[![Screenshot-2024-06-11-at-9-48-34-PM.png](https://i.postimg.cc/Cx5LNt4p/Screenshot-2024-06-11-at-9-48-34-PM.png)](https://postimg.cc/18xQRvTv)
+
+#### Hall caretaker
+[![Screenshot-2024-06-11-at-9-43-08-PM.png](https://i.postimg.cc/85Q6xDy6/Screenshot-2024-06-11-at-9-43-08-PM.png)](https://postimg.cc/d763yMcs)
+
