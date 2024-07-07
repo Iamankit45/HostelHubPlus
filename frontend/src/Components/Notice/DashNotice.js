@@ -7,7 +7,7 @@ import Dashboard from '../Dashboard';
 
 
 
-const NoticeBoard = () => {
+const DashNoticeBoard = () => {
     const { user } = useAuth();
     // Access notices and loading state from the NoticeContext
     const { notices, loading } = useContext(NoticeContext);
@@ -27,31 +27,34 @@ const NoticeBoard = () => {
 
 
     return (
-        <>
-            <div className="container mt-5">
 
-                <h1 className="text-center mb-4">Notice Board</h1>
+        <>
+        <div style={{borderRadius: '10px' ,backgroundColor: '#f8f9fa'}}>
+        <h1 className="text-center mb-4">Notice Board</h1>
+            <div className="container mt-7" style={{borderRadius: '10px' ,backgroundColor: '#f8f9fa'}}>
+
+                
                 <div className="row">
 
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                         <div className="text-md-right mb-3">
                             {user && user.role!== 'student' && ( // Check if user is not student
                                 <Link to="/create-notice" className="btn btn-primary  btn">Create</Link>
                             )}
                         </div>
-                    </div>
+                    </div> */}
                     
-                    <div className="overflow-auto" style={{maxHeight:'1250px',overflowY: 'hidden',msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch',borderRadius: '10px'}}><style>
+                    <div className="overflow-auto" style={{maxHeight:'650px',overflowY: 'hidden',msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch',borderRadius: '10px'}}> <style>
                         {`
                             .overflow-auto::-webkit-scrollbar {
                                 display: none;  // for Chrome, Safari, and Opera
                             }
                         `}
                     </style>
-                    <br></br>
+                    {/* <br></br> */}
                     {notices.map((notice) => (
                         
-                        <div key={notice._id} className="col-md-12 "  >
+                        <div key={notice._id} className="col-md-12"  >
                         
                             {/* Render NoticeCard component for each notice */}
                               <NoticeCard notice={notice} />
@@ -60,9 +63,10 @@ const NoticeBoard = () => {
                     </div>
                 </div>
             </div>
+            </div>
             
         </>
     );
 };
 
-export default NoticeBoard;
+export default DashNoticeBoard;

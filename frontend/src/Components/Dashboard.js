@@ -6,7 +6,7 @@ import UserContext from '../Context/UserContext';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
 import { List, Message, Menu, Dropdown, Icon, Segment, Header } from 'semantic-ui-react';
 import StudentDashboard from './Student/StudentDashboard'; // Import the StudentDashboard component
-
+import DashNoticeBoard from './Notice/DashNotice';
 import "./dashboard.css"
 
 const Dashboard = () => {
@@ -211,13 +211,19 @@ const Dashboard = () => {
                     </Menu>
                 </div>
 
-                <div className="seven wide column">
+                <div className="eight wide column">
                     {role === 'student' && (
                         <StudentDashboard />
                     )}
+                    {
+                        (role === 'caretaker' || role === 'warden' || role === 'hosteladmin') && (
+                            <DashNoticeBoard/>
+                        )
+                    }
+                    
 
                 </div>
-                <div className="five wide column centered">
+                <div className="four wide column centered">
                     <h2>Notifications</h2>
                     <div className="notifications-list">
                         {sortedNotifications.length === 0 ? (
