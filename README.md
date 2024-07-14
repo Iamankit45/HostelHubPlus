@@ -6,11 +6,13 @@ HostelHubbPlus is a MERN stack project meticulously crafted to optimize hostel o
 Designed for four key actors—Students, Caretakers, Wardens, and Hostel Admins—each plays a crucial role in ensuring the system's efficient operation. 
 
 
-[Use Case Diagram](https://photos.google.com/photo/AF1QipNxQJvD2WebnDZI2GydgNkdL0CM8rGvEpwLk4qv)  
+[Use Case Diagram](https://photos.app.goo.gl/jdKM7ACjaf6LMSn69)  
 
 [API documentation](https://docs.google.com/document/d/1KLBBAmtQ7TK-4vsfdeZGaIzZ-wtJS1CGRHJiGlzJrYc/edit?usp=sharing)
 
 [Database Schema](https://docs.google.com/document/d/1EhtUotJ_cZJKlgkPXjlb1y4eUhmX34KkrxGFvG6X4u8/edit?usp=sharing)
+
+[Class Diagram](https://photos.app.goo.gl/TsH8orQvwwRRD5mx8)
 
 ## Features
 
@@ -129,6 +131,10 @@ Some screenshots are provided for reference
 
 [![Screenshot-2024-06-12-at-12-43-13-AM.png](https://i.postimg.cc/kM1sPQ9F/Screenshot-2024-06-12-at-12-43-13-AM.png)](https://postimg.cc/MXBVyjnv)
 
+### Login Page
+
+[![Screenshot-2024-07-14-at-6-38-05-PM.png](https://i.postimg.cc/CM3hXVgs/Screenshot-2024-07-14-at-6-38-05-PM.png)](https://postimg.cc/SjGbY3jn)
+
 #### Manual Room Allocation
 [![Screenshot-2024-05-21-at-1-27-16-AM.png](https://i.postimg.cc/Y0tsBVY9/Screenshot-2024-05-21-at-1-27-16-AM.png)](https://postimg.cc/jwkXzM80)
 
@@ -141,7 +147,7 @@ Some screenshots are provided for reference
 
 [![Screenshot-2024-05-21-at-1-40-00-AM.png](https://i.postimg.cc/BnwbLfnr/Screenshot-2024-05-21-at-1-40-00-AM.png)](https://postimg.cc/qNy4SYnw)
 
-#### Specific Hostel Details
+#### Specific Hostel Details and Random Room Allotment
 
 [![Screenshot-2024-05-21-at-1-40-39-AM.png](https://i.postimg.cc/FKMKpbcG/Screenshot-2024-05-21-at-1-40-39-AM.png)](https://postimg.cc/CZ4YLqcf)
 
@@ -154,9 +160,11 @@ Some screenshots are provided for reference
 #### Assign caretaker
 [![Screenshot-2024-05-21-at-1-50-34-AM.png](https://i.postimg.cc/g0XJ3twn/Screenshot-2024-05-21-at-1-50-34-AM.png)](https://postimg.cc/zLN8rjFr)
 
-#### Hostel Admin
-[![Screenshot-2024-06-11-at-9-48-34-PM.png](https://i.postimg.cc/Cx5LNt4p/Screenshot-2024-06-11-at-9-48-34-PM.png)](https://postimg.cc/18xQRvTv)
-
 #### Hall caretaker
-[![Screenshot-2024-06-11-at-9-43-08-PM.png](https://i.postimg.cc/85Q6xDy6/Screenshot-2024-06-11-at-9-43-08-PM.png)](https://postimg.cc/d763yMcs)
+[![Screenshot-2024-07-14-at-6-39-41-PM.png](https://i.postimg.cc/wjm69qXB/Screenshot-2024-07-14-at-6-39-41-PM.png)](https://postimg.cc/WdsRnPfR)
+
+
+#### Hostel Admin
+[![Screenshot-2024-07-14-at-6-50-08-PM.png](https://i.postimg.cc/xTsWhWB1/Screenshot-2024-07-14-at-6-50-08-PM.png)](https://postimg.cc/7f2sTQxF)
+
 
