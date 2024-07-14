@@ -1,0 +1,32 @@
+/* Login.css */
+
+.login-background {
+    background-image: url('../images/hostel_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    /* position: relative; */
+}
+.login-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(114, 115, 115, 0.5); /* Light overlay */
+    z-index: 1; /* Ensure overlay is above background */
+}
+
+/* Ensure grid is above the overlay */
+.container {
+    z-index: 2; /* Ensure container is above the overlay */
+}
+.card {
+    z-index: 3; /* Ensure card is above the overlay */
+}
